@@ -35,10 +35,10 @@ class APIManager {
                 }
             }else{
                 do {
-                    let arr = try JSONSerialization.jsonObject(with: data!, options: [])
+                    let array = try JSONSerialization.jsonObject(with: data!, options: []) as! Array<Any>
+                    let result = APIManager.getFieldsFromAllInfo(array: array)
                     DispatchQueue.main.async {
-                        print(arr)
-                        handler(arr as? Array<Any>,nil)
+                        handler(result, nil)
                     }
                 } catch {
                     return
@@ -46,5 +46,31 @@ class APIManager {
             }
         }
         task.resume()
+    }
+}
+//MARK: extension processes data from the network and takes the necessary values
+extension APIManager {
+    
+    static func getFieldsFromAllInfo(array: Array<Any>) -> [ImageInfo] {
+        
+        var resultArray = Array<ImageInfo>()
+        
+        if !array.isEmpty {
+            for item in array {
+                
+                if item is Dictionary<String, Any> {
+                    
+                    let dictionary = item as! Dictionary<String, Any>
+                    
+                    
+                    let image = ImageInfo(imageID: dictionary["id"] as? String,
+                                          likes: dictionary["likes"] as? Int,
+                                          urls: dictionary["urls"] as? Dictionary<String, Any>)
+                    resultArray.append(image)
+                }
+            }
+        }
+        
+        return resultArray
     }
 }

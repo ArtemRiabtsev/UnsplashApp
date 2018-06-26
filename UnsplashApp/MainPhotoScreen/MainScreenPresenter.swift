@@ -9,10 +9,11 @@
 import UIKit
 
 class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutputProtocol {
-
-    weak private var view: MainScreenViewProtocol?
+    
+    var router: MainScreenWireframeProtocol?
+    
+    weak var view: MainScreenViewProtocol?
     var interactor: MainScreenInteractorInputProtocol?
-    private let router: MainScreenWireframeProtocol
 
     init(interface: MainScreenViewProtocol, interactor: MainScreenInteractorInputProtocol?, router: MainScreenWireframeProtocol) {
         self.view = interface
@@ -20,4 +21,10 @@ class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutp
         self.router = router
     }
 
+    func didLoadList(imageList: [ImageInfo]) {
+        view?.showImageList(imageList: imageList)
+    }
+    func setUpView() {
+        self.interactor?.getImageList()
+    }
 }

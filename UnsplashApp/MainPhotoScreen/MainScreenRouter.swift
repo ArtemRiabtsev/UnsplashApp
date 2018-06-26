@@ -15,6 +15,7 @@ class MainScreenRouter: MainScreenWireframeProtocol {
     static func createModule() -> UIViewController {
         // Change to get view from storyboard if not using progammatic UI
         let view = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainScreenViewController") as! MainScreenViewProtocol
+        
         let interactor = MainScreenInteractor()
         let router = MainScreenRouter()
         let presenter = MainScreenPresenter(interface: view,
@@ -29,4 +30,3 @@ class MainScreenRouter: MainScreenWireframeProtocol {
     }
 
 }
-//UIStoryboard storyboardWithName:@"Detail" bundle:nil] instantiateViewControllerWithIdentifier:@"DetailViewController"];

@@ -8,37 +8,45 @@
 
 import UIKit
 import Kingfisher
-class MainScreenViewController: UICollectionViewController, MainScreenViewProtocol {
-
+class MainScreenViewController: UICollectionViewController {
+    
     var presenter: MainScreenPresenterProtocol?
-//
-    var dataAr = Array<Any>()
-    let leftRightPaddings: CGFloat = 32
-    let numberOfItemsPerRow: CGFloat = 3
-    let heightAdjustment: CGFloat = 30
+    let searchBar = UISearchBar()
+    
+//                                          ///
+    var dataArray = Array<Any>()            ////
+    let leftRightPaddings: CGFloat = 32     //////   ????????????
+    let numberOfItemsPerRow: CGFloat = 2    ////
+    let heightAdjustment: CGFloat = 30      ///
 //
     override func viewDidLoad() {
         super.viewDidLoad()
-        //test request
+        
+        self.presenter?.setUpView()
+        
+        self.searchBar.showsCancelButton = true
+        self.searchBar.placeholder = "enter keyword..."        
+        self.navigationItem.titleView = self.searchBar
+        
+        
         let width = (collectionView!.frame.width - self.leftRightPaddings) / self.numberOfItemsPerRow
         
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
         
         layout.itemSize = CGSize(width: width, height: width + self.heightAdjustment)
-        
-        APIManager.sharedManager.getImageList { (array, error) in
-            
-            if let array = array {
-                
-                self.dataAr = array
-                print(self.dataAr)
-                self.collectionView?.reloadData()
-            }
-        }
+
     }
-
 }
+//MARK: Main screen view protocol
+extension MainScreenViewController: MainScreenViewProtocol {
+    
+    func showImageList(imageList: [ImageInfo]) {
+        
+        self.dataArray = imageList
 
+        self.collectionView?.reloadData()
+    }
+}
 //MARK: UICollection View Data Source
 extension MainScreenViewController {
     
@@ -53,16 +61,15 @@ extension MainScreenViewController {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
-        
-        
-        
-      //  let resource = ImageResource(downloadURL: url!, cacheKey: "my_cache_key")
-       
-        if !self.dataAr.isEmpty {
-            let dict = self.dataAr[indexPath.row] as! Dictionary<String, Any>
-            let urls = dict["urls"] as! Dictionary<String, Any>
-            let str = urls["small"] as! String
-            let url = URL(string: str)
+        if !self.dataArray.isEmpty {
+            
+            let item = self.dataArray[indexPath.row] as! ImageInfo
+            
+            
+            let url = URL(string: item.urls!["small"] as! String)
+            
+            cell.countOfLikes.text = "❤️ \(item.likes ?? 0)"
+            
             cell.imageView.kf.setImage(with: url)
         }
         

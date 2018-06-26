@@ -8,7 +8,7 @@
 
 import Foundation
 struct ImageInfo {
-    let imageID: String
-    let likes: Int
-    let urls: Dictionary<String, String>
+    let imageID: String?
+    let likes: Int?
+    let urls: Dictionary<String, Any>?
 }
