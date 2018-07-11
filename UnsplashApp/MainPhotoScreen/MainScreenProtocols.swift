@@ -22,7 +22,8 @@ protocol MainScreenPresenterProtocol: class {
     var view: MainScreenViewProtocol? { get set }
     var router: MainScreenWireframeProtocol? { get set }
     
-    func setUpView()
+    func setUpView(page: Int)
+    func setUpViewWithSearchResult(page: Int, keyword: String)
 }
 
 // MARK: InteractorProtocol
@@ -32,6 +33,7 @@ protocol MainScreenInteractorOutputProtocol: class {
     /** Interactor -> Presenter */
     
     func didLoadList(imageList: [ImageInfo])
+    func didLoadImagesByKeyword(imageList: [ImageInfo])
 }
 
 protocol MainScreenInteractorInputProtocol: class {
@@ -39,7 +41,8 @@ protocol MainScreenInteractorInputProtocol: class {
     var presenter: MainScreenInteractorOutputProtocol? { get set }
 
     /** Presenter -> Interactor */
-    func getImageList()
+    func getImageList(page: Int)
+    func searchImagesByKeyword(page: Int, keyword: String)
 }
 
 // MARK: ViewProtocol
@@ -50,4 +53,5 @@ protocol MainScreenViewProtocol: class {
 
     /** Presenter -> ViewController */
     func showImageList(imageList: [ImageInfo])
+    func showSearchResultImageList(imageList: [ImageInfo])
 }

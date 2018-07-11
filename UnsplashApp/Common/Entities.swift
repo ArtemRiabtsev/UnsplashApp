@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import UIKit
 struct ImageInfo {
     let imageID: String?
     let likes: Int?
     let urls: Dictionary<String, Any>?
+    let image: UIImage?
+    let userName: String?
 }

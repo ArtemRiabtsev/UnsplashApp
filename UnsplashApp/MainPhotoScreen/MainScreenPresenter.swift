@@ -9,7 +9,7 @@
 import UIKit
 
 class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutputProtocol {
-    
+
     var router: MainScreenWireframeProtocol?
     
     weak var view: MainScreenViewProtocol?
@@ -24,7 +24,16 @@ class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutp
     func didLoadList(imageList: [ImageInfo]) {
         view?.showImageList(imageList: imageList)
     }
-    func setUpView() {
-        self.interactor?.getImageList()
+    
+    func didLoadImagesByKeyword(imageList: [ImageInfo]) {
+        view?.showSearchResultImageList(imageList: imageList)
+    }
+    
+    func setUpView(page: Int) {
+        self.interactor?.getImageList(page: page)
+    }
+    
+    func setUpViewWithSearchResult(page: Int, keyword: String) {
+        self.interactor?.searchImagesByKeyword(page: page, keyword: keyword)
     }
 }

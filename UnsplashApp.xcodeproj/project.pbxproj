@@ -25,6 +25,7 @@
 		AC4275D320E0CFDC001527A7 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4275D220E0CFDC001527A7 /* APIManager.swift */; };
 		AC4275D520E10882001527A7 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4275D420E10882001527A7 /* Entities.swift */; };
 		AC4275D720E1217E001527A7 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4275D620E1217E001527A7 /* CollectionViewCell.swift */; };
+		ACCC698820ECA0AC00339598 /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC698720ECA0AC00339598 /* CustomLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		AC4275D220E0CFDC001527A7 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		AC4275D420E10882001527A7 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		AC4275D620E1217E001527A7 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		ACCC698720ECA0AC00339598 /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
 		DEC3E2E7C8EE91634D4DE680 /* Pods-UnsplashApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnsplashApp/Pods-UnsplashApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +128,7 @@
 				AC4275C420E0C906001527A7 /* MainScreenRouter.swift */,
 				AC4275C520E0C906001527A7 /* MainScreenViewController.swift */,
 				AC4275D620E1217E001527A7 /* CollectionViewCell.swift */,
+				ACCC698720ECA0AC00339598 /* CustomLayout.swift */,
 				AC4275BF20E0C906001527A7 /* Main.storyboard */,
 			);
 			path = MainPhotoScreen;
@@ -282,6 +285,7 @@
 				AC4275CD20E0C906001527A7 /* MainScreenPresenter.swift in Sources */,
 				AC4275CF20E0C906001527A7 /* MainScreenRouter.swift in Sources */,
 				AC4275D520E10882001527A7 /* Entities.swift in Sources */,
+				ACCC698820ECA0AC00339598 /* CustomLayout.swift in Sources */,
 				AC4275CC20E0C906001527A7 /* MainScreenInteractor.swift in Sources */,
 				AC4275C720E0C906001527A7 /* DetailPhotoProtocols.swift in Sources */,
 				AC4275C620E0C906001527A7 /* DetailPhotoPresenter.swift in Sources */,
