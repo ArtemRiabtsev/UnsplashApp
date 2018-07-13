@@ -47,14 +47,21 @@ class MainScreenViewController: UICollectionViewController {
     }
 }
 
+//MARK: Unsplash Layout Delegate
+
 extension MainScreenViewController: UnsplashLayoutDelegate {
     func collectionView(_collectionView collectionView: UICollectionView,
                         heightForPhotoAtIndexPath indexPath:IndexPath) -> (CGFloat) {
         if !self.dataArray.isEmpty {
-            let item = self.dataArray[indexPath.row] as! ImageInfo
+            let viewModel = self.dataArray[self.currentPage - 1] as! ViewModel
             
-            return (item.image?.size.height)!
-            
+            if  !viewModel.photos.isEmpty {
+                
+                let img = viewModel.photos[indexPath.item]
+                
+                return img.image.size.height
+                
+            }
         }
         return 200
     }
@@ -76,9 +83,9 @@ extension MainScreenViewController: UISearchBarDelegate {
 //MARK: Main screen view protocol
 extension MainScreenViewController: MainScreenViewProtocol {
     
-    func showSearchResultImageList(imageList: [ImageInfo]) {
+    func showSearchResultImageList(imageList: ViewModel) {
         
-        self.dataArray.append(contentsOf: imageList)
+        self.dataArray.append(imageList)
         
         DispatchQueue.main.async {
             self.layout.invalidateLayout()
@@ -87,9 +94,9 @@ extension MainScreenViewController: MainScreenViewProtocol {
     }
     
     
-    func showImageList(imageList: [ImageInfo]) {
+    func showImageList(imageList:ViewModel) {
         
-        self.dataArray.append(contentsOf: imageList)
+        self.dataArray.append(imageList)
         
         DispatchQueue.main.async {
             self.layout.invalidateLayout()
@@ -101,26 +108,34 @@ extension MainScreenViewController: MainScreenViewProtocol {
 extension MainScreenViewController {
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        if indexPath.row == self.dataArray.count - 1 {
-            if !self.flag {
-                self.currentPage += 1
-                self.presenter?.setUpView(page: self.currentPage)
-            }else {
-                print(indexPath.row)
-                self.currentPage += 1
-                self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
+       
+        if !self.dataArray.isEmpty {
+            
+            let viewModel = self.dataArray[self.currentPage - 1] as! ViewModel
+            if indexPath.row == viewModel.photos.count - 1 {
+                if !self.flag {
+                    self.currentPage += 1
+                    self.presenter?.setUpView(page: self.currentPage)
+                }else {
+                    print(indexPath.row)
+                    self.currentPage += 1
+                    self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
+                }
             }
         }
+ 
     }
-
 }
 //MARK: UICollection View Data Source
 extension MainScreenViewController {
     
     public override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return self.dataArray.count
+        if !self.dataArray.isEmpty {
+            let viewModel = self.dataArray[self.currentPage - 1] as! ViewModel
+            return viewModel.photos.count
+        } else {
+            return 1
+        }
     }
     
     
@@ -131,10 +146,16 @@ extension MainScreenViewController {
         
         if !self.dataArray.isEmpty {
             
-            let item = self.dataArray[indexPath.row] as! ImageInfo
-            cell.countOfLikes.text = "❤️ \(item.likes ?? 0) "
-            cell.imageView.image = item.image
-            cell.userName.text = item.userName
+            let items = self.dataArray[self.currentPage - 1] as! ViewModel
+            let img = items.photos[indexPath.item]
+            let imgInfo = items.images[indexPath.item]
+            
+            print(img)
+            print(imgInfo)
+            
+            cell.countOfLikes.text = "❤️ \(imgInfo.likes ) "
+            cell.imageView.image = img.image
+            cell.userName.text = imgInfo.user.name
         }
  
         return cell

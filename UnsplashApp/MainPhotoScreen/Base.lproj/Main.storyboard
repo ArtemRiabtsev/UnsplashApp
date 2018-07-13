@@ -52,6 +52,11 @@
                                     <subviews>
                                         <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_image" translatesAutoresizingMaskIntoConstraints="NO" id="4B3-Ll-1ga">
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="220"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="❤️likes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="HqY-MX-5BQ">
                                             <rect key="frame" x="8" y="172" width="54" height="42"/>
@@ -86,6 +91,11 @@
                                     <constraint firstItem="HqY-MX-5BQ" firstAttribute="leading" secondItem="Z6X-2F-Thc" secondAttribute="leading" constant="8" id="v4o-IQ-viP"/>
                                 </constraints>
                                 <size key="customSize" width="150" height="220"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="countOfLikes" destination="HqY-MX-5BQ" id="Jjg-dg-mCZ"/>
                                     <outlet property="imageView" destination="4B3-Ll-1ga" id="d6n-P1-gSu"/>

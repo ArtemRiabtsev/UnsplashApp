@@ -32,8 +32,8 @@ protocol MainScreenInteractorOutputProtocol: class {
 
     /** Interactor -> Presenter */
     
-    func didLoadList(imageList: [ImageInfo])
-    func didLoadImagesByKeyword(imageList: [ImageInfo])
+    func didLoadList(imageList: ViewModel)
+    func didLoadImagesByKeyword(imageList: ViewModel)
 }
 
 protocol MainScreenInteractorInputProtocol: class {
@@ -52,6 +52,6 @@ protocol MainScreenViewProtocol: class {
     var presenter: MainScreenPresenterProtocol? { get set }
 
     /** Presenter -> ViewController */
-    func showImageList(imageList: [ImageInfo])
-    func showSearchResultImageList(imageList: [ImageInfo])
+    func showImageList(imageList: ViewModel)
+    func showSearchResultImageList(imageList: ViewModel)
 }
