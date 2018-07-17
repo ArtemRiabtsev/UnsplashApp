@@ -13,11 +13,13 @@ class MainScreenViewController: UICollectionViewController {
     
     var presenter: MainScreenPresenterProtocol?
     let searchBar = UISearchBar()
-    var dataArray = Array<Any>()
-    var layout: CustomLayout!
+    var photoDataArray = Array<Photo>()
+    var imageDataArray = Array<ImageInfo>()
+    var layout = CustomLayout()
     var flag = false {
         didSet{
             currentPage = 1
+            self.collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: false)
         }
     }
     var currentPage = 1
@@ -27,12 +29,11 @@ class MainScreenViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.presenter?.setUpView(page: currentPage)
+        
         self.layout = collectionViewLayout as! CustomLayout
         self.layout.delegate = self
         
-        
-        self.presenter?.setUpView(page: currentPage)
- 
         self.searchBar.showsCancelButton = true
         self.searchBar.placeholder = "enter keyword..."
         self.searchBar.delegate = self
@@ -52,40 +53,48 @@ class MainScreenViewController: UICollectionViewController {
 extension MainScreenViewController: UnsplashLayoutDelegate {
     func collectionView(_collectionView collectionView: UICollectionView,
                         heightForPhotoAtIndexPath indexPath:IndexPath) -> (CGFloat) {
-        if !self.dataArray.isEmpty {
-            let viewModel = self.dataArray[self.currentPage - 1] as! ViewModel
+        if !self.photoDataArray.isEmpty {
+            let img = self.photoDataArray[indexPath.item]
             
-            if  !viewModel.photos.isEmpty {
-                
-                let img = viewModel.photos[indexPath.item]
-                
-                return img.image.size.height
-                
-            }
+            return img.image.size.height
         }
-        return 200
+        return 0
     }
         
 }
 //MARK: UISearchBar delegate
 extension MainScreenViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let keyword = searchBar.text {
+        if searchBar.text != nil && searchBar.text != "" {
             self.flag = true
-            self.currentPage += 1
-            self.dataArray.removeAll()
-            self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: keyword)
-            searchBar.resignFirstResponder()
+            self.cleareData()
+            self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
         }
+        searchBar.resignFirstResponder()
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        if self.flag {
+            self.flag = false
+            self.cleareData()
+            self.presenter?.setUpView(page: self.currentPage)
+        }
+        searchBar.resignFirstResponder()
+    }
+    func cleareData() -> Void {
+        photoDataArray.removeAll()
+        imageDataArray.removeAll()
+        self.layout.cache.removeAll()
+        self.layout.contentHeight = 0
     }
 }
 
 //MARK: Main screen view protocol
 extension MainScreenViewController: MainScreenViewProtocol {
-    
+    /*
     func showSearchResultImageList(imageList: ViewModel) {
         
-        self.dataArray.append(imageList)
+        self.photoDataArray.append(contentsOf: imageList.photos)
+        self.imageDataArray.append(contentsOf: imageList.images)
         
         DispatchQueue.main.async {
             self.layout.invalidateLayout()
@@ -93,15 +102,13 @@ extension MainScreenViewController: MainScreenViewProtocol {
         }
     }
     
-    
+    */
     func showImageList(imageList:ViewModel) {
         
-        self.dataArray.append(imageList)
-        
-        DispatchQueue.main.async {
-            self.layout.invalidateLayout()
-            self.collectionView?.reloadData()
-        }
+        self.photoDataArray.append(contentsOf: imageList.photos)
+        self.imageDataArray.append(contentsOf: imageList.images)
+        self.collectionView?.reloadData()
+        self.layout.invalidateLayout()
     }
 }
 //MARK: UICollection View Delegate
@@ -109,30 +116,25 @@ extension MainScreenViewController {
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
        
-        if !self.dataArray.isEmpty {
+        
+        if indexPath.row == self.photoDataArray.count - 1 {
             
-            let viewModel = self.dataArray[self.currentPage - 1] as! ViewModel
-            if indexPath.row == viewModel.photos.count - 1 {
-                if !self.flag {
-                    self.currentPage += 1
-                    self.presenter?.setUpView(page: self.currentPage)
-                }else {
-                    print(indexPath.row)
-                    self.currentPage += 1
-                    self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
-                }
+            self.currentPage += 1
+            
+            if !self.flag {
+                self.presenter?.setUpView(page: self.currentPage)
+            }else {
+                self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
             }
         }
- 
     }
 }
 //MARK: UICollection View Data Source
 extension MainScreenViewController {
     
     public override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if !self.dataArray.isEmpty {
-            let viewModel = self.dataArray[self.currentPage - 1] as! ViewModel
-            return viewModel.photos.count
+        if !self.photoDataArray.isEmpty {
+            return self.photoDataArray.count
         } else {
             return 1
         }
@@ -144,14 +146,11 @@ extension MainScreenViewController {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
-        if !self.dataArray.isEmpty {
+        if !self.photoDataArray.isEmpty {
             
-            let items = self.dataArray[self.currentPage - 1] as! ViewModel
-            let img = items.photos[indexPath.item]
-            let imgInfo = items.images[indexPath.item]
+            let imgInfo = self.imageDataArray[indexPath.row]
+            let img = self.photoDataArray[indexPath.row]
             
-            print(img)
-            print(imgInfo)
             
             cell.countOfLikes.text = "❤️ \(imgInfo.likes ) "
             cell.imageView.image = img.image

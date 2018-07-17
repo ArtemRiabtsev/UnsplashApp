@@ -53,5 +53,5 @@ protocol MainScreenViewProtocol: class {
 
     /** Presenter -> ViewController */
     func showImageList(imageList: ViewModel)
-    func showSearchResultImageList(imageList: ViewModel)
+  //  func showSearchResultImageList(imageList: ViewModel)
 }

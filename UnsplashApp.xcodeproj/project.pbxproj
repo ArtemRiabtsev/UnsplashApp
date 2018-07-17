@@ -133,10 +133,10 @@
 				AC4275C220E0C906001527A7 /* MainScreenPresenter.swift */,
 				AC4275C320E0C906001527A7 /* MainScreenProtocols.swift */,
 				AC4275C420E0C906001527A7 /* MainScreenRouter.swift */,
+				AC4275BF20E0C906001527A7 /* Main.storyboard */,
 				AC4275C520E0C906001527A7 /* MainScreenViewController.swift */,
 				AC4275D620E1217E001527A7 /* CollectionViewCell.swift */,
 				ACCC698720ECA0AC00339598 /* CustomLayout.swift */,
-				AC4275BF20E0C906001527A7 /* Main.storyboard */,
 			);
 			path = MainPhotoScreen;
 			sourceTree = "<group>";

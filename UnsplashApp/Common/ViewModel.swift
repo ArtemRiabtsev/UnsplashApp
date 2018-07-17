@@ -10,6 +10,8 @@ import UIKit
 
 class ViewModel {
     private let client: APIClient
+    var searchResult: SearchObject?
+    
     var images: Images = [] {
         didSet {
             self.fetchPhoto()
@@ -29,12 +31,12 @@ class ViewModel {
             
             let endpoint = UnsplashEndpoint.photos(clientID: UnsplashClient.apiKey, page: String(page))
             
-            client.fetch(endpoint: endpoint) { (either) in
+            client.fetchList(endpoint: endpoint) { (either) in
                 switch either {
                 case .success(let images):
                     self.images = images
                 case .error(let error):
-                    print(error)
+                    print(error.localizedDescription)
                 }
             }
         }
@@ -44,12 +46,13 @@ class ViewModel {
             
             let endpoint = UnsplashEndpoint.searchByKeyword(clientID: UnsplashClient.apiKey, keyword: keyword, page: String(page))
             
-            client.fetch(endpoint: endpoint) { (either) in
+            client.fetchSearchResult(endpoint: endpoint) { (either) in
                 switch either {
-                case .success(let images):
-                    self.images = images
+                case .success(let searchRes):
+                    self.searchResult = searchRes
+                    self.images = (self.searchResult?.results)!
                 case .error(let error):
-                    print(error)
+                    print(error.localizedDescription)
                 }
             }
         }

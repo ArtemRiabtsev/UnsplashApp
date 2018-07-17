@@ -33,3 +33,11 @@ struct User: Codable {
     let total_photos: Int
     
 }
+struct SearchObject: Codable {
+    let total: Int
+    let total_pages: Int
+    let results: Images
+    
+    
+    
+}

@@ -34,15 +34,13 @@ class CustomLayout: UICollectionViewLayout {
     override var collectionViewContentSize: CGSize {
         return CGSize(width: contentWidth, height: contentHeight)
     }
-    
+
     override func prepare() {
         //1
-        print("Prepare")
-       
         guard let collectionView = collectionView else {
             return
         }
- 
+       // cache.removeAll()
         //2
         let columnWidth = contentWidth / CGFloat(numberOfColumns)
         var xOffset = [CGFloat]()
@@ -52,12 +50,10 @@ class CustomLayout: UICollectionViewLayout {
         var column = 0
         var yOffset = [CGFloat](repeating: 0, count: numberOfColumns)
         //3
-        print(collectionView.numberOfItems(inSection: 0))
-        
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
-            
+            print(item)
             //4
             let photoHeight = delegate.collectionView(_collectionView: collectionView, heightForPhotoAtIndexPath: indexPath)
             
@@ -68,7 +64,6 @@ class CustomLayout: UICollectionViewLayout {
             // 5
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.frame = insetFrame
-            print(attributes)
             cache.append(attributes)
             // 6
             contentHeight = max(contentHeight, frame.maxY)
@@ -76,7 +71,6 @@ class CustomLayout: UICollectionViewLayout {
             
             column = column < (numberOfColumns - 1) ? (column + 1) : 0
         }
-        
     }
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
@@ -90,7 +84,10 @@ class CustomLayout: UICollectionViewLayout {
         }
         return visibleLayoutAttributes
     }
+    
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        print(indexPath.item)
         return cache[indexPath.item]
     }
+ 
 }

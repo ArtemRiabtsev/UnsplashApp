@@ -60,4 +60,30 @@ extension APIClient {
         }
         task.resume()
     }
+    func get<T: Codable>(request: URLRequest, completion: @escaping (Either<T>) -> Void ) {
+        
+        let task = self.session.dataTask(with: request) { (data, response, error) in
+            
+            guard error == nil else {
+                
+                completion(.error(error!))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
+                completion(.error(APIError.badResponse))
+                return
+            }
+            
+            guard let value = try? JSONDecoder().decode(T.self, from: data!) else {
+                completion(.error(APIError.jsonDecoder))
+                return
+            }
+            
+            DispatchQueue.main.async {
+                completion(.success(value))
+            }
+        }
+        task.resume()
+    }
 }

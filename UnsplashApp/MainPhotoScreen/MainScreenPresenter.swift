@@ -26,7 +26,7 @@ class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutp
     }
     
     func didLoadImagesByKeyword(imageList: ViewModel) {
-        view?.showSearchResultImageList(imageList: imageList)
+        view?.showImageList(imageList: imageList)
     }
     
     func setUpView(page: Int) {
