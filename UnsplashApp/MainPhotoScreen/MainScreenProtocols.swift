@@ -6,12 +6,13 @@
 //  Copyright © 2018 Артем Рябцев. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // MARK: WireFrameProtocol
 
 protocol MainScreenWireframeProtocol: class {
-
+    static func createModule() -> UIViewController
+    func pushDetail() -> Void
 }
 
 // MARK: PresenterProtocol

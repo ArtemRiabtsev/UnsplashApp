@@ -9,12 +9,13 @@
 import UIKit
 
 class DetailPhotoRouter: DetailPhotoWireframeProtocol {
+    
 
     weak var viewController: UIViewController?
 
     static func createModule() -> UIViewController {
         // Change to get view from storyboard if not using progammatic UI
-        let view = DetailPhotoViewController(nibName: nil, bundle: nil)
+        let view = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailPhotoViewController") as! DetailPhotoViewController
         let interactor = DetailPhotoInteractor()
         let router = DetailPhotoRouter()
         let presenter = DetailPhotoPresenter(interface: view,
@@ -27,5 +28,8 @@ class DetailPhotoRouter: DetailPhotoWireframeProtocol {
 
         return view
     }
-
+    
+    func dismissDetail() {
+        self.viewController?.dismiss(animated: true, completion: nil)
+    }
 }

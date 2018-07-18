@@ -6,18 +6,18 @@
 //  Copyright © 2018 Артем Рябцев. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // MARK: WireFrameProtocol
 
 protocol DetailPhotoWireframeProtocol: class {
-
+    static func createModule() -> UIViewController
+    func dismissDetail()
 }
 
 // MARK: PresenterProtocol
 
 protocol DetailPhotoPresenterProtocol: class {
-
     var interactor: DetailPhotoInteractorInputProtocol? { get set }
 }
 

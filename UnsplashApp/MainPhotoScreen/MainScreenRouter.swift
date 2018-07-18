@@ -9,7 +9,7 @@
 import UIKit
 
 class MainScreenRouter: MainScreenWireframeProtocol {
-
+    
     weak var viewController: UIViewController?
 
     static func createModule() -> UIViewController {
@@ -29,4 +29,7 @@ class MainScreenRouter: MainScreenWireframeProtocol {
         return view as! UIViewController
     }
 
+    func pushDetail() {
+        self.viewController?.navigationController?.pushViewController(DetailPhotoRouter.createModule(), animated: true)
+    }
 }

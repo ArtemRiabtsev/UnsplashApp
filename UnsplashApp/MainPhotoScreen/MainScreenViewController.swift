@@ -16,6 +16,8 @@ class MainScreenViewController: UICollectionViewController {
     var photoDataArray = Array<Photo>()
     var imageDataArray = Array<ImageInfo>()
     var layout = CustomLayout()
+    let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+
     var flag = false {
         didSet{
             currentPage = 1
@@ -41,11 +43,23 @@ class MainScreenViewController: UICollectionViewController {
         self.searchBar.autocorrectionType = .yes
         
         self.navigationItem.titleView = self.searchBar
+        self.view.addSubview(activityView)
+        self.activityView.color = UIColor.red
+        self.activityView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        self.activityView.backgroundColor = UIColor.white
+        self.activityView.alpha = 0.5
+        self.activityView.hidesWhenStopped = true
+        self.activityView.center = self.view.center
+        self.collectionView?.isUserInteractionEnabled = false
+        self.activityView.startAnimating()
+        self.navigationController?.navigationBar.isTranslucent = false
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
         layout.invalidateLayout()
     }
+
 }
 
 //MARK: Unsplash Layout Delegate
@@ -90,25 +104,18 @@ extension MainScreenViewController: UISearchBarDelegate {
 
 //MARK: Main screen view protocol
 extension MainScreenViewController: MainScreenViewProtocol {
-    /*
-    func showSearchResultImageList(imageList: ViewModel) {
+
+    func showImageList(imageList:ViewModel) {
         
         self.photoDataArray.append(contentsOf: imageList.photos)
         self.imageDataArray.append(contentsOf: imageList.images)
         
         DispatchQueue.main.async {
-            self.layout.invalidateLayout()
             self.collectionView?.reloadData()
+            self.layout.invalidateLayout()
+            self.activityView.stopAnimating()
+            self.collectionView?.isUserInteractionEnabled = true
         }
-    }
-    
-    */
-    func showImageList(imageList:ViewModel) {
-        
-        self.photoDataArray.append(contentsOf: imageList.photos)
-        self.imageDataArray.append(contentsOf: imageList.images)
-        self.collectionView?.reloadData()
-        self.layout.invalidateLayout()
     }
 }
 //MARK: UICollection View Delegate
@@ -116,17 +123,21 @@ extension MainScreenViewController {
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
        
-        
         if indexPath.row == self.photoDataArray.count - 1 {
             
             self.currentPage += 1
-            
+            self.collectionView?.isUserInteractionEnabled = false
+            self.activityView.startAnimating()
             if !self.flag {
                 self.presenter?.setUpView(page: self.currentPage)
             }else {
                 self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
             }
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.presenter?.router?.pushDetail()
     }
 }
 //MARK: UICollection View Data Source
@@ -159,4 +170,6 @@ extension MainScreenViewController {
  
         return cell
     }
+
 }
+
