@@ -8,9 +8,13 @@
 
 import UIKit
 
-class ViewModel {
+class ListViewModel {
     private let client: APIClient
-    var searchResult: SearchObject?
+    var searchResult: SearchObject? = nil {
+        didSet {
+            self.images = (self.searchResult?.results)!
+        }
+    }
     
     var images: Images = [] {
         didSet {
@@ -50,32 +54,39 @@ class ViewModel {
                 switch either {
                 case .success(let searchRes):
                     self.searchResult = searchRes
-                    self.images = (self.searchResult?.results)!
                 case .error(let error):
                     print(error.localizedDescription)
                 }
             }
         }
     }
-    private func fetchPhoto() {
-        
+    ///////===================================================== !!!!!!!!!!!!!!!!!!!!!!!
+    
+    func fetchPhoto() {
+
         let group = DispatchGroup()
         self.images.forEach { (photo) in
-            DispatchQueue.global(qos: .background).async(group: group) {
+            DispatchQueue.main.async {
+
                 group.enter()
+                
+                print("PHOTO ID \(photo.id)")
+                
                 guard let photoData = try? Data(contentsOf: photo.urls.small) else {
                  //   self.showError?(APIError.imageDownload)
                     return
                 }
                 
-                guard let photo = UIImage(data: photoData) else {
+                guard let image = UIImage(data: photoData) else {
                     // self.showError?(APIError.imageConvert)
                     return
                 }
-                self.photos.append(Photo(image: photo))
+                let photo = Photo(image: image)
+                
+                self.photos.append(photo)
                 group.leave()
             }
-        }        
+        }
         group.notify(queue: .main) {
             self.isLoaded!()
             

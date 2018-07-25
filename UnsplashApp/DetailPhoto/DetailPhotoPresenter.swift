@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailPhotoPresenter: DetailPhotoPresenterProtocol, DetailPhotoInteractorOutputProtocol {
-
+    
     weak private var view: DetailPhotoViewProtocol?
     var interactor: DetailPhotoInteractorInputProtocol?
     private let router: DetailPhotoWireframeProtocol
@@ -19,5 +19,10 @@ class DetailPhotoPresenter: DetailPhotoPresenterProtocol, DetailPhotoInteractorO
         self.interactor = interactor
         self.router = router
     }
-
+    func setUpView(id: String) {
+        self.interactor?.getPhoto(id: id)
+    }
+    func didLoadPhoto(viewModel: SingleViewModel) {
+        self.view?.showPhoto(viewModel: viewModel)
+    }
 }

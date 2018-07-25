@@ -21,11 +21,11 @@ class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutp
         self.router = router
     }
 
-    func didLoadList(imageList: ViewModel) {
+    func didLoadList(imageList: ListViewModel) {
         view?.showImageList(imageList: imageList)
     }
     
-    func didLoadImagesByKeyword(imageList: ViewModel) {
+    func didLoadImagesByKeyword(imageList: ListViewModel) {
         view?.showImageList(imageList: imageList)
     }
     

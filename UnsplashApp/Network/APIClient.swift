@@ -24,6 +24,7 @@ enum APIError: Error {
 protocol APIClient {
     var session: URLSession { get }
     func get<T: Codable>(request: URLRequest, completion: @escaping (Either<[T]>) -> Void )
+    func get<T: Codable>(request: URLRequest, completion: @escaping (Either<T>) -> Void )
 }
 
 extension APIClient {

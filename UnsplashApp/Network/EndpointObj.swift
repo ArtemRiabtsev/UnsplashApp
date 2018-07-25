@@ -37,6 +37,7 @@ enum UnsplashEndpoint : Endpoint {
 
     case photos(clientID: String, page: String)
     case searchByKeyword(clientID: String, keyword: String, page: String)
+    case photoByID(clientID: String, photoID: String)
     
     var baseURL: String {
         return "https://api.unsplash.com"
@@ -49,6 +50,8 @@ enum UnsplashEndpoint : Endpoint {
             return "/photos"
         case .searchByKeyword:
             return "/search/photos"
+        case .photoByID(_, let photoID):
+            return "/photos/" + photoID
         }
     }
     
@@ -66,6 +69,10 @@ enum UnsplashEndpoint : Endpoint {
                 URLQueryItem(name: "client_id", value: id),
                 URLQueryItem(name: "page", value: page),
                 URLQueryItem(name: "query", value: keyword)
+            ]
+        case .photoByID( let id, _):
+            return[
+                URLQueryItem(name: "client_id", value: id),
             ]
         }
     }

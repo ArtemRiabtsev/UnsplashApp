@@ -12,7 +12,7 @@ import UIKit
 
 protocol MainScreenWireframeProtocol: class {
     static func createModule() -> UIViewController
-    func pushDetail() -> Void
+    func pushDetailWithSelectedPhoto(photoID: String) -> Void
 }
 
 // MARK: PresenterProtocol
@@ -33,8 +33,8 @@ protocol MainScreenInteractorOutputProtocol: class {
 
     /** Interactor -> Presenter */
     
-    func didLoadList(imageList: ViewModel)
-    func didLoadImagesByKeyword(imageList: ViewModel)
+    func didLoadList(imageList: ListViewModel)
+    func didLoadImagesByKeyword(imageList: ListViewModel)
 }
 
 protocol MainScreenInteractorInputProtocol: class {
@@ -53,6 +53,5 @@ protocol MainScreenViewProtocol: class {
     var presenter: MainScreenPresenterProtocol? { get set }
 
     /** Presenter -> ViewController */
-    func showImageList(imageList: ViewModel)
-  //  func showSearchResultImageList(imageList: ViewModel)
+    func showImageList(imageList: ListViewModel)
 }

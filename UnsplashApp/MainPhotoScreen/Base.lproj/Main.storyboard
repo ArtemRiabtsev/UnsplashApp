@@ -6,57 +6,10 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ci-Ej-WbI">
-                                <rect key="frame" x="0.0" y="72" width="414" height="664"/>
-                                <subviews>
-                                    <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_image" translatesAutoresizingMaskIntoConstraints="NO" id="bf5-Lv-ZUx">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="664"/>
-                                    </imageView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="bf5-Lv-ZUx" secondAttribute="bottom" id="4sT-KY-6sl"/>
-                                    <constraint firstItem="bf5-Lv-ZUx" firstAttribute="centerX" secondItem="2Ci-Ej-WbI" secondAttribute="centerX" id="6w9-H1-xSL"/>
-                                    <constraint firstItem="bf5-Lv-ZUx" firstAttribute="centerY" secondItem="2Ci-Ej-WbI" secondAttribute="centerY" id="Ig0-hg-SyB"/>
-                                    <constraint firstItem="bf5-Lv-ZUx" firstAttribute="leading" secondItem="2Ci-Ej-WbI" secondAttribute="leading" id="hua-qY-NaY"/>
-                                    <constraint firstItem="bf5-Lv-ZUx" firstAttribute="top" secondItem="2Ci-Ej-WbI" secondAttribute="top" id="oYx-U4-LHa"/>
-                                    <constraint firstAttribute="trailing" secondItem="bf5-Lv-ZUx" secondAttribute="trailing" id="t49-I6-yc1"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="nDD-nl-Afv"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="2Ci-Ej-WbI" firstAttribute="top" relation="lessThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="52" id="GNU-as-Coq"/>
-                            <constraint firstItem="2Ci-Ej-WbI" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Rdh-KP-Cfr"/>
-                            <constraint firstItem="2Ci-Ej-WbI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cKK-sj-eHv"/>
-                            <constraint firstItem="2Ci-Ej-WbI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="taP-hb-gRn"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="bf5-Lv-ZUx" id="AjW-6A-XOx"/>
-                        <outlet property="scrollView" destination="2Ci-Ej-WbI" id="CZp-Hf-6sv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="785.50724637681162" y="125.54347826086958"/>
-        </scene>
         <!--Detail Photo View Controller-->
         <scene sceneID="PQf-Cj-oPM">
             <objects>
@@ -66,36 +19,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_image" translatesAutoresizingMaskIntoConstraints="NO" id="kgD-J9-MBO">
-                                <rect key="frame" x="0.0" y="64" width="414" height="622"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="636"/>
+                                <gestureRecognizers/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="fyp-of-QEm" appends="YES" id="Om4-In-37m"/>
+                                    <outletCollection property="gestureRecognizers" destination="cZW-0v-psh" appends="YES" id="tjo-bP-ouz"/>
+                                    <outletCollection property="gestureRecognizers" destination="DeI-EB-bxS" appends="YES" id="4ZQ-e3-wyU"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Qhk-Jh-Hmu" firstAttribute="bottom" secondItem="kgD-J9-MBO" secondAttribute="bottom" constant="50" id="PxW-hK-vZ0"/>
-                            <constraint firstItem="kgD-J9-MBO" firstAttribute="top" secondItem="Qhk-Jh-Hmu" secondAttribute="top" constant="44" id="WLl-Av-m6x"/>
+                            <constraint firstItem="Qhk-Jh-Hmu" firstAttribute="bottom" secondItem="kgD-J9-MBO" secondAttribute="bottom" constant="50" id="06z-nv-rJJ"/>
+                            <constraint firstItem="kgD-J9-MBO" firstAttribute="centerY" secondItem="4Nf-Fc-rFU" secondAttribute="centerY" id="eMq-Uz-Ur5"/>
                             <constraint firstItem="kgD-J9-MBO" firstAttribute="leading" secondItem="Qhk-Jh-Hmu" secondAttribute="leading" id="ecD-iA-tHe"/>
                             <constraint firstItem="kgD-J9-MBO" firstAttribute="trailing" secondItem="Qhk-Jh-Hmu" secondAttribute="trailing" id="o4U-pT-EnE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qhk-Jh-Hmu"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="bkF-cN-TBK" appends="YES" id="1bK-bT-CMe"/>
-                        </connections>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="kgD-J9-MBO" id="p2T-ru-LqZ"/>
-                        <outlet property="pinchGestureRecognizer" destination="bkF-cN-TBK" id="GYv-Xz-bHi"/>
+                        <outlet property="detailImageView" destination="kgD-J9-MBO" id="bj1-Gx-Gy6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tJQ-VP-iWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="bkF-cN-TBK">
+                <pinchGestureRecognizer id="fyp-of-QEm">
                     <connections>
-                        <action selector="pinchView:" destination="Hme-S5-daw" id="JNh-lr-KZ2"/>
-                        <outlet property="delegate" destination="Hme-S5-daw" id="RqB-FZ-J1V"/>
+                        <action selector="viewPinch:" destination="Hme-S5-daw" id="vyH-pa-Akb"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <tapGestureRecognizer id="cZW-0v-psh">
+                    <connections>
+                        <action selector="tapView:" destination="Hme-S5-daw" id="AZP-fe-0wt"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="DeI-EB-bxS">
+                    <connections>
+                        <action selector="panView:" destination="Hme-S5-daw" id="GLU-D8-uAL"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1828.985507246377" y="128.80434782608697"/>
+            <point key="canvasLocation" x="1301" y="126"/>
         </scene>
         <!--Main Screen View Controller-->
         <scene sceneID="knn-hs-AgS">

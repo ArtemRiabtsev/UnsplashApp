@@ -14,7 +14,6 @@ class MainScreenInteractor: MainScreenInteractorInputProtocol {
     func getImageList(page: Int) {
         
         self.loadImageList(page: page)
-            //self.presenter?.didLoadList(imageList: viewModel)
     }
     
     func searchImagesByKeyword(page: Int, keyword: String) {
@@ -25,7 +24,7 @@ class MainScreenInteractor: MainScreenInteractorInputProtocol {
     //load data from network
     func loadImageList(page: Int) {
         
-        let viewModel = ViewModel(client: UnsplashClient())
+        let viewModel = ListViewModel(client: UnsplashClient())
         viewModel.fetchLatestImages(page: page)
         viewModel.isLoaded = {
             self.presenter?.didLoadList(imageList: viewModel)
@@ -33,7 +32,7 @@ class MainScreenInteractor: MainScreenInteractorInputProtocol {
      
     }
     func loadSearchResultImageList(page: Int, keyword: String) {
-        let viewModel = ViewModel(client: UnsplashClient())
+        let viewModel = ListViewModel(client: UnsplashClient())
         viewModel.fetchImagesByKeyword(page: page, keyword: keyword)
         viewModel.isLoaded = {
            self.presenter?.didLoadImagesByKeyword(imageList: viewModel)

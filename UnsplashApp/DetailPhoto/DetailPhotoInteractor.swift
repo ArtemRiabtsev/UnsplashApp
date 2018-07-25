@@ -9,7 +9,18 @@
 import Foundation
 
 class DetailPhotoInteractor: DetailPhotoInteractorInputProtocol {
-
+    
     weak var presenter: DetailPhotoInteractorOutputProtocol?
 
+    func getPhoto(id: String) {
+        loadPhoto(id: id)
+    }
+    func loadPhoto(id: String) {
+        let viewModel = SingleViewModel(client: UnsplashClient())
+        viewModel.fetchImageByID(id: id)
+        
+        viewModel.isLoaded = {
+            self.presenter?.didLoadPhoto(viewModel: viewModel)
+        }
+    }
 }

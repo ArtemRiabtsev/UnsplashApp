@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 import AVFoundation
 class MainScreenViewController: UICollectionViewController {
     
@@ -68,8 +67,7 @@ extension MainScreenViewController: UnsplashLayoutDelegate {
     func collectionView(_collectionView collectionView: UICollectionView,
                         heightForPhotoAtIndexPath indexPath:IndexPath) -> (CGFloat) {
         if !self.photoDataArray.isEmpty {
-            let img = self.photoDataArray[indexPath.item]
-            
+            let img = self.photoDataArray[indexPath.item]            
             return img.image.size.height
         }
         return 0
@@ -105,14 +103,14 @@ extension MainScreenViewController: UISearchBarDelegate {
 //MARK: Main screen view protocol
 extension MainScreenViewController: MainScreenViewProtocol {
 
-    func showImageList(imageList:ViewModel) {
+    func showImageList(imageList:ListViewModel) {
         
         self.photoDataArray.append(contentsOf: imageList.photos)
         self.imageDataArray.append(contentsOf: imageList.images)
         
         DispatchQueue.main.async {
-            self.collectionView?.reloadData()
             self.layout.invalidateLayout()
+            self.collectionView?.reloadData()
             self.activityView.stopAnimating()
             self.collectionView?.isUserInteractionEnabled = true
         }
@@ -137,7 +135,11 @@ extension MainScreenViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.presenter?.router?.pushDetail()
+        
+        let photoID = self.imageDataArray[indexPath.item]
+        
+        
+        self.presenter?.router?.pushDetailWithSelectedPhoto(photoID: photoID.id)
     }
 }
 //MARK: UICollection View Data Source
@@ -160,6 +162,9 @@ extension MainScreenViewController {
         if !self.photoDataArray.isEmpty {
             
             let imgInfo = self.imageDataArray[indexPath.row]
+            //- - - - - -
+           print(imgInfo.id)
+            //- - - - - - -
             let img = self.photoDataArray[indexPath.row]
             
             

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8EB54406254699AEF401F411 /* Pods_UnsplashApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3597508F32F78D2E31A29DDA /* Pods_UnsplashApp.framework */; };
-		AC3E1A1F20F7535A00D38A93 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3E1A1E20F7535A00D38A93 /* ViewModel.swift */; };
+		AC3E1A1F20F7535A00D38A93 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3E1A1E20F7535A00D38A93 /* ListViewModel.swift */; };
 		AC4275A720E0C8C6001527A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4275A620E0C8C6001527A7 /* AppDelegate.swift */; };
 		AC4275AE20E0C8C9001527A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC4275AD20E0C8C9001527A7 /* Assets.xcassets */; };
 		AC4275B120E0C8C9001527A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC4275AF20E0C8C9001527A7 /* LaunchScreen.storyboard */; };
@@ -28,13 +28,14 @@
 		AC6FA9BB20F60E7B00261838 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FA9BA20F60E7B00261838 /* APIClient.swift */; };
 		AC6FA9C020F623A800261838 /* EndpointObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FA9BF20F623A800261838 /* EndpointObj.swift */; };
 		AC6FA9C220F62F6000261838 /* UnsplashClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FA9C120F62F6000261838 /* UnsplashClient.swift */; };
+		ACADC14C21062441003D35F5 /* SingleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC14B21062441003D35F5 /* SingleViewModel.swift */; };
 		ACCC698820ECA0AC00339598 /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC698720ECA0AC00339598 /* CustomLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1783E8A914BB3F1B0ACE1B0D /* Pods-UnsplashApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnsplashApp/Pods-UnsplashApp.debug.xcconfig"; sourceTree = "<group>"; };
 		3597508F32F78D2E31A29DDA /* Pods_UnsplashApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC3E1A1E20F7535A00D38A93 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		AC3E1A1E20F7535A00D38A93 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		AC4275A320E0C8C6001527A7 /* UnsplashApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnsplashApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC4275A620E0C8C6001527A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC4275AD20E0C8C9001527A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +57,7 @@
 		AC6FA9BA20F60E7B00261838 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		AC6FA9BF20F623A800261838 /* EndpointObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointObj.swift; sourceTree = "<group>"; };
 		AC6FA9C120F62F6000261838 /* UnsplashClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashClient.swift; sourceTree = "<group>"; };
+		ACADC14B21062441003D35F5 /* SingleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewModel.swift; sourceTree = "<group>"; };
 		ACCC698720ECA0AC00339598 /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
 		DEC3E2E7C8EE91634D4DE680 /* Pods-UnsplashApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnsplashApp/Pods-UnsplashApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,7 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				AC4275D420E10882001527A7 /* ImageEntity.swift */,
-				AC3E1A1E20F7535A00D38A93 /* ViewModel.swift */,
+				ACADC14B21062441003D35F5 /* SingleViewModel.swift */,
+				AC3E1A1E20F7535A00D38A93 /* ListViewModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -278,11 +281,23 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-UnsplashApp/Pods-UnsplashApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/CarambaKit/CarambaKit.framework",
+				"${BUILT_PRODUCTS_DIR}/HTTPStatusCodes/HTTPStatusCodes.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
+				"${BUILT_PRODUCTS_DIR}/UnsplashKit/UnsplashKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CarambaKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HTTPStatusCodes.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UnsplashKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -306,7 +321,8 @@
 				AC4275D520E10882001527A7 /* ImageEntity.swift in Sources */,
 				ACCC698820ECA0AC00339598 /* CustomLayout.swift in Sources */,
 				AC4275CC20E0C906001527A7 /* MainScreenInteractor.swift in Sources */,
-				AC3E1A1F20F7535A00D38A93 /* ViewModel.swift in Sources */,
+				ACADC14C21062441003D35F5 /* SingleViewModel.swift in Sources */,
+				AC3E1A1F20F7535A00D38A93 /* ListViewModel.swift in Sources */,
 				AC4275C720E0C906001527A7 /* DetailPhotoProtocols.swift in Sources */,
 				AC4275C620E0C906001527A7 /* DetailPhotoPresenter.swift in Sources */,
 				AC4275C820E0C906001527A7 /* DetailPhotoInteractor.swift in Sources */,

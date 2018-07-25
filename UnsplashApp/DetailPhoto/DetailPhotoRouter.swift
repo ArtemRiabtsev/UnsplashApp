@@ -13,20 +13,23 @@ class DetailPhotoRouter: DetailPhotoWireframeProtocol {
 
     weak var viewController: UIViewController?
 
-    static func createModule() -> UIViewController {
+    static func createModuleWithID(id: String) -> UIViewController {
         // Change to get view from storyboard if not using progammatic UI
         let view = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailPhotoViewController") as! DetailPhotoViewController
+        
         let interactor = DetailPhotoInteractor()
         let router = DetailPhotoRouter()
         let presenter = DetailPhotoPresenter(interface: view,
-                                                                interactor: interactor,
-                                                                router: router)
+                                            interactor: interactor,
+                                                router: router)
 
         view.presenter = presenter
         interactor.presenter = presenter
         router.viewController = view
-
-        return view
+        
+        presenter.setUpView(id: id)
+        
+        return view as UIViewController
     }
     
     func dismissDetail() {

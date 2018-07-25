@@ -6,5 +6,5 @@ target 'UnsplashApp' do
   use_frameworks!
 
   # Pods for UnsplashApp
-	pod 'Kingfisher', '~> 4.0'
+   
 end

@@ -11,7 +11,7 @@ import UIKit
 // MARK: WireFrameProtocol
 
 protocol DetailPhotoWireframeProtocol: class {
-    static func createModule() -> UIViewController
+    static func createModuleWithID(id: String) -> UIViewController
     func dismissDetail()
 }
 
@@ -19,12 +19,14 @@ protocol DetailPhotoWireframeProtocol: class {
 
 protocol DetailPhotoPresenterProtocol: class {
     var interactor: DetailPhotoInteractorInputProtocol? { get set }
+    func setUpView(id: String)
 }
 
 // MARK: InteractorProtocol
 
 protocol DetailPhotoInteractorOutputProtocol: class {
 
+    func didLoadPhoto(viewModel: SingleViewModel)
     /** Interactor -> Presenter */
 }
 
@@ -32,6 +34,7 @@ protocol DetailPhotoInteractorInputProtocol: class {
 
     var presenter: DetailPhotoInteractorOutputProtocol? { get set }
 
+    func getPhoto(id: String) -> Void
     /** Presenter -> Interactor */
 }
 
@@ -40,6 +43,7 @@ protocol DetailPhotoInteractorInputProtocol: class {
 protocol DetailPhotoViewProtocol: class {
 
     var presenter: DetailPhotoPresenterProtocol? { get set }
-
+    var detailImageView: UIImageView! { get set}
     /** Presenter -> ViewController */
+    func showPhoto(viewModel: SingleViewModel)
 }

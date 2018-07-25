@@ -29,7 +29,8 @@ class MainScreenRouter: MainScreenWireframeProtocol {
         return view as! UIViewController
     }
 
-    func pushDetail() {
-        self.viewController?.navigationController?.pushViewController(DetailPhotoRouter.createModule(), animated: true)
+    func pushDetailWithSelectedPhoto(photoID: String) {
+        let detailViewController = DetailPhotoRouter.createModuleWithID(id: photoID) as! DetailPhotoViewController
+        self.viewController?.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
