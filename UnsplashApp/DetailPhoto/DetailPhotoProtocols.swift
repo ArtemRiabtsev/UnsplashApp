@@ -23,6 +23,10 @@ protocol DetailPhotoPresenterProtocol: class {
 }
 
 // MARK: InteractorProtocol
+protocol DownloadDelegate: class {
+    func downloadProgressUpdate(for progress: Float)
+    func downloadFinished()
+}
 
 protocol DetailPhotoInteractorOutputProtocol: class {
 
@@ -33,8 +37,10 @@ protocol DetailPhotoInteractorOutputProtocol: class {
 protocol DetailPhotoInteractorInputProtocol: class {
 
     var presenter: DetailPhotoInteractorOutputProtocol? { get set }
-
-    func getPhoto(id: String) -> Void
+    
+    func downloadPhotoWithCustomSize(id: String, size: CGSize)
+    
+    func getPhoto(id: String)
     /** Presenter -> Interactor */
 }
 

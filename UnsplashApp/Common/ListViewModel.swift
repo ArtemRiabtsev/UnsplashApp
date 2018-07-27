@@ -9,7 +9,7 @@
 import UIKit
 
 class ListViewModel {
-    private let client: APIClient
+    let client: APIClient
     var searchResult: SearchObject? = nil {
         didSet {
             self.images = (self.searchResult?.results)!
@@ -18,7 +18,7 @@ class ListViewModel {
     
     var images: Images = [] {
         didSet {
-            self.fetchPhoto()
+            self.getPhoto()
         }
     }
     var photos:[Photo] = []
@@ -62,7 +62,7 @@ class ListViewModel {
     }
     ///////===================================================== !!!!!!!!!!!!!!!!!!!!!!!
     
-    func fetchPhoto() {
+    func getPhoto() {
 
         let group = DispatchGroup()
         self.images.forEach { (photo) in
@@ -73,7 +73,7 @@ class ListViewModel {
                 print("PHOTO ID \(photo.id)")
                 
                 guard let photoData = try? Data(contentsOf: photo.urls.small) else {
-                 //   self.showError?(APIError.imageDownload)
+                   // self.showError?(APIError.imageDownload)
                     return
                 }
                 

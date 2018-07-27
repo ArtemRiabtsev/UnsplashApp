@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_image" translatesAutoresizingMaskIntoConstraints="NO" id="kgD-J9-MBO">
-                                <rect key="frame" x="0.0" y="50" width="414" height="636"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -36,13 +36,14 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Qhk-Jh-Hmu" firstAttribute="bottom" secondItem="kgD-J9-MBO" secondAttribute="bottom" constant="50" id="06z-nv-rJJ"/>
+                            <constraint firstItem="Qhk-Jh-Hmu" firstAttribute="bottom" secondItem="kgD-J9-MBO" secondAttribute="bottom" id="06z-nv-rJJ"/>
                             <constraint firstItem="kgD-J9-MBO" firstAttribute="centerY" secondItem="4Nf-Fc-rFU" secondAttribute="centerY" id="eMq-Uz-Ur5"/>
                             <constraint firstItem="kgD-J9-MBO" firstAttribute="leading" secondItem="Qhk-Jh-Hmu" secondAttribute="leading" id="ecD-iA-tHe"/>
                             <constraint firstItem="kgD-J9-MBO" firstAttribute="trailing" secondItem="Qhk-Jh-Hmu" secondAttribute="trailing" id="o4U-pT-EnE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qhk-Jh-Hmu"/>
                     </view>
+                    <size key="freeformSize" width="414" height="736"/>
                     <connections>
                         <outlet property="detailImageView" destination="kgD-J9-MBO" id="bj1-Gx-Gy6"/>
                     </connections>
@@ -53,7 +54,7 @@
                         <action selector="viewPinch:" destination="Hme-S5-daw" id="vyH-pa-Akb"/>
                     </connections>
                 </pinchGestureRecognizer>
-                <tapGestureRecognizer id="cZW-0v-psh">
+                <tapGestureRecognizer numberOfTapsRequired="2" id="cZW-0v-psh">
                     <connections>
                         <action selector="tapView:" destination="Hme-S5-daw" id="AZP-fe-0wt"/>
                     </connections>
@@ -64,7 +65,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1301" y="126"/>
+            <point key="canvasLocation" x="1085.5072463768117" y="54.619565217391312"/>
         </scene>
         <!--Main Screen View Controller-->
         <scene sceneID="knn-hs-AgS">
@@ -152,6 +153,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Sfv-ov-bR0"/>
+                    <size key="freeformSize" width="414" height="736"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXy-fi-1mk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

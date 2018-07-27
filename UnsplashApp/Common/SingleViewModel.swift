@@ -10,11 +10,17 @@ import UIKit
 
 class SingleViewModel: ListViewModel {
     
-    private let client: APIClient
-    
     var imageByID: ImageInfo?  {
         didSet {
-            self.fetchPhoto()
+            if let url = imageByID?.urls.custom {
+                if let client = self.client as? UnsplashClient {
+                    let endpoint = UnsplashEndpoint.downloadPhoto(url: url.absoluteString)
+       //             client.downloadModel?.delegate = self as? DownloadDelegate
+                    client.downloadPhoto(endpoint: endpoint)
+                }
+            } else {
+                self.getPhoto()
+            }
         }
     }
     
@@ -23,10 +29,21 @@ class SingleViewModel: ListViewModel {
             self.isLoaded!()
         }
     }
-    
-    override init(client: APIClient) {
-        self.client = client
-        super.init(client: client)
+
+    func fetchImageByIDWithCustomSize(id: String, width: Int, height: Int) {
+        if let client = self.client as? UnsplashClient {
+            
+            let endpoint = UnsplashEndpoint.photoByIDWithCustomSize(clientID: UnsplashClient.apiKey, photoID: id, width: width, height: height)
+            
+            client.fetchPhoto(endpoint: endpoint) { (either) in
+                switch either {
+                case .success(let image):
+                    self.imageByID = image
+                case .error(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     func fetchImageByID(id: String) {
@@ -44,7 +61,8 @@ class SingleViewModel: ListViewModel {
             }
         }
     }
-    override func fetchPhoto() {
+
+    override func getPhoto() {
         
         guard let photoData = try? Data(contentsOf: (self.imageByID?.urls.small)!) else {
             //   self.showError?(APIError.imageDownload)

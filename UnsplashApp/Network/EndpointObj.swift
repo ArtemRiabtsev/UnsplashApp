@@ -38,9 +38,16 @@ enum UnsplashEndpoint : Endpoint {
     case photos(clientID: String, page: String)
     case searchByKeyword(clientID: String, keyword: String, page: String)
     case photoByID(clientID: String, photoID: String)
+    case photoByIDWithCustomSize(clientID: String, photoID: String, width: Int, height: Int)
+    case downloadPhoto(url: String)
     
     var baseURL: String {
-        return "https://api.unsplash.com"
+        switch self {
+        case .photos, .photoByID, .searchByKeyword, .photoByIDWithCustomSize:
+            return "https://api.unsplash.com"
+        case .downloadPhoto:
+            return ""
+        }
     }
     
     var path: String {
@@ -52,6 +59,10 @@ enum UnsplashEndpoint : Endpoint {
             return "/search/photos"
         case .photoByID(_, let photoID):
             return "/photos/" + photoID
+        case .photoByIDWithCustomSize(_,  let photoID, _, _):
+            return "/photos/" + photoID
+        case .downloadPhoto(let url):
+            return url
         }
     }
     
@@ -74,6 +85,14 @@ enum UnsplashEndpoint : Endpoint {
             return[
                 URLQueryItem(name: "client_id", value: id),
             ]
+        case .photoByIDWithCustomSize(let id, _, let width, let height):
+            return[
+                URLQueryItem(name: "client_id", value: id),
+                URLQueryItem(name: "w", value: String(width)),
+                URLQueryItem(name: "h", value: String(height))
+            ]
+        case .downloadPhoto:
+            return []
         }
     }
 }

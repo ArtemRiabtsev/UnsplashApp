@@ -19,6 +19,7 @@ struct ImageInfo: Codable  {
 
 struct Photo {
     let image: UIImage
+
 }
 
 struct URLS: Codable {
@@ -27,6 +28,7 @@ struct URLS: Codable {
     let regular: URL
     let small: URL
     let thumb: URL
+    let custom: URL?
 }
 struct User: Codable {
     let name: String
@@ -39,3 +41,4 @@ struct SearchObject: Codable {
     let results: Images
 
 }
+

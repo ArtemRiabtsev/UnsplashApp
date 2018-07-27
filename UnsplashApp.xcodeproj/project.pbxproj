@@ -29,6 +29,7 @@
 		AC6FA9C020F623A800261838 /* EndpointObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FA9BF20F623A800261838 /* EndpointObj.swift */; };
 		AC6FA9C220F62F6000261838 /* UnsplashClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6FA9C120F62F6000261838 /* UnsplashClient.swift */; };
 		ACADC14C21062441003D35F5 /* SingleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC14B21062441003D35F5 /* SingleViewModel.swift */; };
+		ACB90F072109AA2F00E8A3B1 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB90F062109AA2F00E8A3B1 /* DownloadManager.swift */; };
 		ACCC698820ECA0AC00339598 /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC698720ECA0AC00339598 /* CustomLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		AC6FA9BF20F623A800261838 /* EndpointObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointObj.swift; sourceTree = "<group>"; };
 		AC6FA9C120F62F6000261838 /* UnsplashClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashClient.swift; sourceTree = "<group>"; };
 		ACADC14B21062441003D35F5 /* SingleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewModel.swift; sourceTree = "<group>"; };
+		ACB90F062109AA2F00E8A3B1 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		ACCC698720ECA0AC00339598 /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
 		DEC3E2E7C8EE91634D4DE680 /* Pods-UnsplashApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnsplashApp/Pods-UnsplashApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,7 +110,6 @@
 				AC6FA9BC20F6194C00261838 /* Network */,
 				AC4275D120E0CC35001527A7 /* Common */,
 				AC4275B820E0C906001527A7 /* DetailPhoto */,
-				AC4275BE20E0C906001527A7 /* MainPhotoScreen */,
 				AC4275AD20E0C8C9001527A7 /* Assets.xcassets */,
 				AC4275AF20E0C8C9001527A7 /* LaunchScreen.storyboard */,
 				AC4275B220E0C8C9001527A7 /* Info.plist */,
@@ -119,11 +120,12 @@
 		AC4275B820E0C906001527A7 /* DetailPhoto */ = {
 			isa = PBXGroup;
 			children = (
+				AC4275BB20E0C906001527A7 /* DetailPhotoInteractor.swift */,
 				AC4275B920E0C906001527A7 /* DetailPhotoPresenter.swift */,
 				AC4275BA20E0C906001527A7 /* DetailPhotoProtocols.swift */,
-				AC4275BB20E0C906001527A7 /* DetailPhotoInteractor.swift */,
 				AC4275BC20E0C906001527A7 /* DetailPhotoRouter.swift */,
 				AC4275BD20E0C906001527A7 /* DetailPhotoViewController.swift */,
+				AC4275BE20E0C906001527A7 /* MainPhotoScreen */,
 			);
 			path = DetailPhoto;
 			sourceTree = "<group>";
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				AC4275D420E10882001527A7 /* ImageEntity.swift */,
+				ACB90F062109AA2F00E8A3B1 /* DownloadManager.swift */,
 				ACADC14B21062441003D35F5 /* SingleViewModel.swift */,
 				AC3E1A1E20F7535A00D38A93 /* ListViewModel.swift */,
 			);
@@ -318,6 +321,7 @@
 				AC4275CD20E0C906001527A7 /* MainScreenPresenter.swift in Sources */,
 				AC6FA9C220F62F6000261838 /* UnsplashClient.swift in Sources */,
 				AC4275CF20E0C906001527A7 /* MainScreenRouter.swift in Sources */,
+				ACB90F072109AA2F00E8A3B1 /* DownloadManager.swift in Sources */,
 				AC4275D520E10882001527A7 /* ImageEntity.swift in Sources */,
 				ACCC698820ECA0AC00339598 /* CustomLayout.swift in Sources */,
 				AC4275CC20E0C906001527A7 /* MainScreenInteractor.swift in Sources */,
