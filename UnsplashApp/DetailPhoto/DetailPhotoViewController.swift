@@ -69,12 +69,22 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
             }
         }
     }
-    @objc func downloadImage(sendet: UIBarButtonItem) -> Void {
-        print("downloadImage")
+    @objc func downloadImage(sender: UIBarButtonItem) -> Void {
         
         let size = calculateWidthHeight()
         
-        self.presenter?.interactor?.downloadPhotoWithCustomSize(id: self.photoID!, size: size)
+        let alert = UIAlertController(title: "Download photo?", message: "Size: \(size)", preferredStyle: .alert)
+        
+        let okAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+            self.presenter?.interactor?.downloadPhotoWithCustomSize(id: self.photoID!, size: size)
+        }
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .default) { (UIAlertAction) in
+        }
+        alert.addAction(okAlertAction)
+        alert.addAction(cancelAlertAction)
+        
+        self.present( alert, animated: true, completion: nil)
+        print("downloadImage")
     }
     //MARK: support func
     func setTitleWidthHeight() -> Void {

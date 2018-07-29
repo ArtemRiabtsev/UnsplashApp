@@ -10,8 +10,10 @@ import UIKit
 
 class ListViewModel {
     let client: APIClient
+    var maxPage = 999
     var searchResult: SearchObject? = nil {
         didSet {
+            self.maxPage = (searchResult?.total_pages)!
             self.images = (self.searchResult?.results)!
         }
     }
@@ -24,6 +26,8 @@ class ListViewModel {
     var photos:[Photo] = []
     
     var isLoaded: (() -> Void)?
+    var isLoading: (() -> Void)?
+    
     
     
     init(client: APIClient) {
@@ -49,7 +53,7 @@ class ListViewModel {
         if let client = self.client as? UnsplashClient {
             
             let endpoint = UnsplashEndpoint.searchByKeyword(clientID: UnsplashClient.apiKey, keyword: keyword, page: String(page))
-            
+            print(endpoint.request)
             client.fetchSearchResult(endpoint: endpoint) { (either) in
                 switch either {
                 case .success(let searchRes):

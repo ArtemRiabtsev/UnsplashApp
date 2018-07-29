@@ -53,7 +53,6 @@ class CustomLayout: UICollectionViewLayout {
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
-            print(item)
             //4
             let photoHeight = delegate.collectionView(_collectionView: collectionView, heightForPhotoAtIndexPath: indexPath)
             

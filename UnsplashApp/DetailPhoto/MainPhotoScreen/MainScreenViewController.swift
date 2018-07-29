@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AVFoundation
 class MainScreenViewController: UICollectionViewController {
     
     var presenter: MainScreenPresenterProtocol?
@@ -19,8 +18,8 @@ class MainScreenViewController: UICollectionViewController {
 
     var flag = false {
         didSet{
+            
             currentPage = 1
-            self.collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: false)
         }
     }
     var currentPage = 1
@@ -50,13 +49,22 @@ class MainScreenViewController: UICollectionViewController {
         self.activityView.hidesWhenStopped = true
         self.activityView.center = self.view.center
         self.collectionView?.isUserInteractionEnabled = false
+        
+        let statusLabel = UILabel(frame: CGRect(x: self.activityView.center.x - 75,
+                                                y: self.activityView.center.y + 50,
+                                                width: 150,
+                                                height: 28))
+        statusLabel.text = "loading..."
+        statusLabel.textAlignment = .center
+        statusLabel.autoresizingMask = [.flexibleBottomMargin, .flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]
+        self.activityView.addSubview(statusLabel)
         self.activityView.startAnimating()
         self.navigationController?.navigationBar.isTranslucent = false
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        layout.invalidateLayout()
+        self.activityView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        self.layout.invalidateLayout()
     }
 
 }
@@ -77,22 +85,29 @@ extension MainScreenViewController: UnsplashLayoutDelegate {
 //MARK: UISearchBar delegate
 extension MainScreenViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        self.activityView.startAnimating()
+        
         if searchBar.text != nil && searchBar.text != "" {
             self.flag = true
-            self.cleareData()
+            
             self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
         }
         searchBar.resignFirstResponder()
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
         if self.flag {
+            self.activityView.startAnimating()
             self.flag = false
             self.cleareData()
             self.presenter?.setUpView(page: self.currentPage)
         }
+        searchBar.text = nil
         searchBar.resignFirstResponder()
     }
     func cleareData() -> Void {
+        
         photoDataArray.removeAll()
         imageDataArray.removeAll()
         self.layout.cache.removeAll()
@@ -104,16 +119,33 @@ extension MainScreenViewController: UISearchBarDelegate {
 extension MainScreenViewController: MainScreenViewProtocol {
 
     func showImageList(imageList:ListViewModel) {
+   
+        switch true {
+            
+        case self.flag == true && imageList.searchResult?.total == 0:
+            notFound()
+        case self.flag && imageList.searchResult?.total != 0 && self.currentPage == 1:
+            cleareData()
+        default:
+            break
+        }
         
         self.photoDataArray.append(contentsOf: imageList.photos)
         self.imageDataArray.append(contentsOf: imageList.images)
-        
+            
         DispatchQueue.main.async {
-            self.layout.invalidateLayout()
             self.collectionView?.reloadData()
+            self.layout.invalidateLayout()
             self.activityView.stopAnimating()
             self.collectionView?.isUserInteractionEnabled = true
         }
+    }
+    
+    func notFound() {
+        let alert = UIAlertController(title: "Not found", message: "try another keyword", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 //MARK: UICollection View Delegate
@@ -163,7 +195,6 @@ extension MainScreenViewController {
             
             let imgInfo = self.imageDataArray[indexPath.row]
             //- - - - - -
-           print(imgInfo.id)
             //- - - - - - -
             let img = self.photoDataArray[indexPath.row]
             
