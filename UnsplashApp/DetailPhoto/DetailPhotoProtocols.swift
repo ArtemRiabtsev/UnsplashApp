@@ -19,18 +19,22 @@ protocol DetailPhotoWireframeProtocol: class {
 
 protocol DetailPhotoPresenterProtocol: class {
     var interactor: DetailPhotoInteractorInputProtocol? { get set }
+    var view: DetailPhotoViewProtocol? { get set }
+    var router: DetailPhotoWireframeProtocol? { get set }
     func setUpView(id: String)
 }
 
 // MARK: InteractorProtocol
 protocol DownloadDelegate: class {
     func downloadProgressUpdate(for progress: Float)
-    func downloadFinished()
+    func downloadFinished(info: String)
 }
 
 protocol DetailPhotoInteractorOutputProtocol: class {
 
     func didLoadPhoto(viewModel: SingleViewModel)
+    func downloadProgress(progress: Float)
+    func downloadFinished(info: String)
     /** Interactor -> Presenter */
 }
 
@@ -51,5 +55,7 @@ protocol DetailPhotoViewProtocol: class {
     var presenter: DetailPhotoPresenterProtocol? { get set }
     var detailImageView: UIImageView! { get set}
     /** Presenter -> ViewController */
+    func showDownloadProgress(progress: Float)
     func showPhoto(viewModel: SingleViewModel)
+    func showDownloadInfo(info: String)
 }

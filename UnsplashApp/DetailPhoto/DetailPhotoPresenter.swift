@@ -10,9 +10,9 @@ import UIKit
 
 class DetailPhotoPresenter: DetailPhotoPresenterProtocol, DetailPhotoInteractorOutputProtocol {
     
-    weak private var view: DetailPhotoViewProtocol?
+    var view: DetailPhotoViewProtocol?
     var interactor: DetailPhotoInteractorInputProtocol?
-    private let router: DetailPhotoWireframeProtocol
+    var router: DetailPhotoWireframeProtocol?
 
     init(interface: DetailPhotoViewProtocol, interactor: DetailPhotoInteractorInputProtocol?, router: DetailPhotoWireframeProtocol) {
         self.view = interface
@@ -24,5 +24,11 @@ class DetailPhotoPresenter: DetailPhotoPresenterProtocol, DetailPhotoInteractorO
     }
     func didLoadPhoto(viewModel: SingleViewModel) {
         self.view?.showPhoto(viewModel: viewModel)
+    }
+    func downloadProgress(progress: Float) {
+        self.view?.showDownloadProgress(progress: progress)
+    }
+    func downloadFinished(info: String) {
+        self.view?.showDownloadInfo(info: info)
     }
 }

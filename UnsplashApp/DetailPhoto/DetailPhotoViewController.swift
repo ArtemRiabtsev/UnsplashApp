@@ -26,16 +26,21 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
 
     @IBOutlet weak var detailImageView: UIImageView!
     
+    var popoverController: PopoverViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Download", style: .plain, target: self, action: #selector(downloadImage))
+        
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        self.presenter?.router?.dismissDetail()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-
     }
-
+   
     //MARK: ACTIONS
     @IBAction func panView(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
@@ -71,12 +76,11 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
     }
     @objc func downloadImage(sender: UIBarButtonItem) -> Void {
         
-        let size = calculateWidthHeight()
-        
         let alert = UIAlertController(title: "Download photo?", message: "Size: \(size)", preferredStyle: .alert)
         
         let okAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-            self.presenter?.interactor?.downloadPhotoWithCustomSize(id: self.photoID!, size: size)
+            
+            self.stardDownload()
         }
         let cancelAlertAction = UIAlertAction(title: "Cancel", style: .default) { (UIAlertAction) in
         }
@@ -84,9 +88,29 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
         alert.addAction(cancelAlertAction)
         
         self.present( alert, animated: true, completion: nil)
-        print("downloadImage")
     }
+    
     //MARK: support func
+    //
+    
+    func creatPopoverController() -> UIViewController {
+        
+        let popController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopoverController")
+        popController.modalPresentationStyle = .popover
+        popController.popoverPresentationController?.delegate = self
+        return popController
+    }
+    
+    // 
+    func stardDownload() {
+        let size = calculateWidthHeight()
+        
+        self.popoverController = creatPopoverController() as? PopoverViewController
+        
+        self.present(self.popoverController!, animated: true, completion: nil)
+        self.presenter?.interactor?.downloadPhotoWithCustomSize(id: self.photoID!, size: size)
+        
+    }
     func setTitleWidthHeight() -> Void {
         
         let size = calculateWidthHeight()
@@ -100,13 +124,13 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
         
         return size
     }
+    
 }
 
 
 //MARK: Detail Photo View Protocol
 extension DetailPhotoViewController {
     func showPhoto(viewModel: SingleViewModel) {
-        print(viewModel.imageByID?.urls)
         
         self.imageViewSize = self.detailImageView.frame.size
         
@@ -116,6 +140,46 @@ extension DetailPhotoViewController {
         
         self.detailImageView.image = image
         setTitleWidthHeight()
-     //   self.detailImageView.frame = CGRect(x: self.detailImageView.frame.origin.x, y: self.detailImageView.frame.origin.y, width: image!.size.width, height: image!.size.height)
+    }
+    
+    func showDownloadProgress(progress: Float) {        
+
+        DispatchQueue.main.async {
+            self.popoverController?.progressView.setProgress(progress, animated: true)
+        }
+    }
+    func showDownloadInfo(info: String) {
+        
+        let alert = UIAlertController(title: info, message: nil, preferredStyle: .alert)
+        
+        let okAlertAction = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+            
+        }
+        
+        alert.addAction(okAlertAction)
+        DispatchQueue.main.async {
+            self.popoverController?.dismiss(animated: true, completion: nil)
+            let viewController = self.navigationController?.topViewController
+            viewController?.present(alert, animated: true, completion: nil)
+            alert.view.center = (viewController?.view.center)!
+        }
+   }
+}
+//MARK: UIPopover Presentation Controller Delegate
+
+extension DetailPhotoViewController: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        popoverPresentationController.permittedArrowDirections = [.up, .right]
+     //   popoverPresentationController.sourceView = self.view
+      //  popoverPresentationController.sourceRect = CGRect(x: Int(self.view.frame.maxX - 150), y: Int(self.view.frame.minY), width: 140, height: 60)
+        popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem
+    }
+     func popoverPresentationController(_ popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverTo rect: UnsafeMutablePointer<CGRect>, in view: AutoreleasingUnsafeMutablePointer<UIView>) {
+        view.pointee = self.view
+        rect.pointee = self.view.bounds
     }
 }

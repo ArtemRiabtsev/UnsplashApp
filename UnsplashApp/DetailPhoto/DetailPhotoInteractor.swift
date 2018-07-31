@@ -11,7 +11,6 @@ import UIKit
 class DetailPhotoInteractor: DetailPhotoInteractorInputProtocol {
    
     weak var presenter: DetailPhotoInteractorOutputProtocol?
-
    
     func loadPhoto(id: String) {
         let viewModel = SingleViewModel(client: UnsplashClient())
@@ -41,14 +40,24 @@ extension DetailPhotoInteractor {
 extension DetailPhotoInteractor: DownloadDelegate {
     
     
-    func downloadFinished() {
-        print("IMAGE  SAVED")
+    func downloadFinished(info: String) {
+        
+        if self.presenter != nil {
+            self.presenter?.downloadFinished(info: info)
+        } else {
+            print("presenter == nil")
+            return
+        }
     }
     
     
     func downloadProgressUpdate(for progress: Float) {
-        // send to presenter
-        
-        print("PROGRESS \(progress)")
+        // send download progress to presenter
+        if self.presenter != nil {
+            self.presenter?.downloadProgress(progress: progress)
+        } else {
+            print("presenter == nil")
+            return
+        }
     }
 }

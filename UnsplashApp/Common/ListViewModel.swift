@@ -70,12 +70,10 @@ class ListViewModel {
 
         let group = DispatchGroup()
         self.images.forEach { (photo) in
-            DispatchQueue.main.async {
+            DispatchQueue.global(qos: .background).sync {
 
                 group.enter()
-                
-                print("PHOTO ID \(photo.id)")
-                
+                                
                 guard let photoData = try? Data(contentsOf: photo.urls.small) else {
                    // self.showError?(APIError.imageDownload)
                     return
@@ -91,6 +89,7 @@ class ListViewModel {
                 group.leave()
             }
         }
+        
         group.notify(queue: .main) {
             self.isLoaded!()
             

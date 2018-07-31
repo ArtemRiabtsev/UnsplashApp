@@ -36,12 +36,12 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Qhk-Jh-Hmu" firstAttribute="bottom" secondItem="kgD-J9-MBO" secondAttribute="bottom" id="06z-nv-rJJ"/>
+                            <constraint firstItem="ck6-Da-l44" firstAttribute="bottom" secondItem="kgD-J9-MBO" secondAttribute="bottom" id="06z-nv-rJJ"/>
                             <constraint firstItem="kgD-J9-MBO" firstAttribute="centerY" secondItem="4Nf-Fc-rFU" secondAttribute="centerY" id="eMq-Uz-Ur5"/>
-                            <constraint firstItem="kgD-J9-MBO" firstAttribute="leading" secondItem="Qhk-Jh-Hmu" secondAttribute="leading" id="ecD-iA-tHe"/>
-                            <constraint firstItem="kgD-J9-MBO" firstAttribute="trailing" secondItem="Qhk-Jh-Hmu" secondAttribute="trailing" id="o4U-pT-EnE"/>
+                            <constraint firstItem="kgD-J9-MBO" firstAttribute="leading" secondItem="ck6-Da-l44" secondAttribute="leading" id="ecD-iA-tHe"/>
+                            <constraint firstItem="kgD-J9-MBO" firstAttribute="trailing" secondItem="ck6-Da-l44" secondAttribute="trailing" id="o4U-pT-EnE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Qhk-Jh-Hmu"/>
+                        <viewLayoutGuide key="safeArea" id="ck6-Da-l44"/>
                     </view>
                     <size key="freeformSize" width="414" height="736"/>
                     <connections>
@@ -65,7 +65,43 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1085.5072463768117" y="54.619565217391312"/>
+            <point key="canvasLocation" x="387" y="126"/>
+        </scene>
+        <!--Popover View Controller-->
+        <scene sceneID="AcG-ni-jjf">
+            <objects>
+                <viewController storyboardIdentifier="PopoverController" modalPresentationStyle="pageSheet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xsN-aO-PLK" customClass="PopoverViewController" customModule="UnsplashApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IB3-xW-QJG">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSo-2A-mJd">
+                                <rect key="frame" x="16" y="45" width="168" height="2"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <color key="progressTintColor" name="systemPinkColor" catalog="System" colorSpace="catalog"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNm-dX-fDN">
+                                <rect key="frame" x="16" y="16" width="168" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="xBD-L5-3Lw"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="150" height="60"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="200" height="60"/>
+                    <connections>
+                        <outlet property="progressView" destination="YSo-2A-mJd" id="hDr-Ad-uTL"/>
+                        <outlet property="statusLabel" destination="TNm-dX-fDN" id="lGK-3m-0el"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AXd-1W-ZzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1028.985507246377" y="-136.14130434782609"/>
         </scene>
         <!--Main Screen View Controller-->
         <scene sceneID="knn-hs-AgS">

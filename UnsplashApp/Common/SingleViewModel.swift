@@ -15,7 +15,6 @@ class SingleViewModel: ListViewModel {
             if let url = imageByID?.urls.custom {
                 if let client = self.client as? UnsplashClient {
                     let endpoint = UnsplashEndpoint.downloadPhoto(url: url.absoluteString)
-       //             client.downloadModel?.delegate = self as? DownloadDelegate
                     client.downloadPhoto(endpoint: endpoint)
                 }
             } else {
@@ -64,16 +63,19 @@ class SingleViewModel: ListViewModel {
 
     override func getPhoto() {
         
-        guard let photoData = try? Data(contentsOf: (self.imageByID?.urls.small)!) else {
-            //   self.showError?(APIError.imageDownload)
-            return
+        DispatchQueue.global(qos: .background).async {
+            guard let photoData = try? Data(contentsOf: (self.imageByID?.urls.small)!) else {
+                //   self.showError?(APIError.imageDownload)
+                return
+            }
+            
+            guard let photo = UIImage(data: photoData) else {
+                // self.showError?(APIError.imageConvert)
+                return
+            }
+            DispatchQueue.main.async {
+                 self.photo = Photo(image: photo)
+            }
         }
-        
-        guard let photo = UIImage(data: photoData) else {
-            // self.showError?(APIError.imageConvert)
-            return
-        }
-        print(photo)
-        self.photo = Photo(image: photo)
     }
 }

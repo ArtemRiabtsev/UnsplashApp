@@ -31,6 +31,7 @@
 		ACADC14C21062441003D35F5 /* SingleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADC14B21062441003D35F5 /* SingleViewModel.swift */; };
 		ACB90F072109AA2F00E8A3B1 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB90F062109AA2F00E8A3B1 /* DownloadManager.swift */; };
 		ACCC698820ECA0AC00339598 /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC698720ECA0AC00339598 /* CustomLayout.swift */; };
+		ACE4CCD3210EDFEE0004176D /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE4CCD2210EDFEE0004176D /* PopoverViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		ACADC14B21062441003D35F5 /* SingleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewModel.swift; sourceTree = "<group>"; };
 		ACB90F062109AA2F00E8A3B1 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		ACCC698720ECA0AC00339598 /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
+		ACE4CCD2210EDFEE0004176D /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		DEC3E2E7C8EE91634D4DE680 /* Pods-UnsplashApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnsplashApp/Pods-UnsplashApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,8 +112,9 @@
 				AC6FA9BC20F6194C00261838 /* Network */,
 				AC4275D120E0CC35001527A7 /* Common */,
 				AC4275B820E0C906001527A7 /* DetailPhoto */,
-				AC4275AD20E0C8C9001527A7 /* Assets.xcassets */,
+				AC4275BE20E0C906001527A7 /* MainPhotoScreen */,
 				AC4275AF20E0C8C9001527A7 /* LaunchScreen.storyboard */,
+				AC4275AD20E0C8C9001527A7 /* Assets.xcassets */,
 				AC4275B220E0C8C9001527A7 /* Info.plist */,
 			);
 			path = UnsplashApp;
@@ -125,7 +128,7 @@
 				AC4275BA20E0C906001527A7 /* DetailPhotoProtocols.swift */,
 				AC4275BC20E0C906001527A7 /* DetailPhotoRouter.swift */,
 				AC4275BD20E0C906001527A7 /* DetailPhotoViewController.swift */,
-				AC4275BE20E0C906001527A7 /* MainPhotoScreen */,
+				ACE4CCD2210EDFEE0004176D /* PopoverViewController.swift */,
 			);
 			path = DetailPhoto;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				AC4275C720E0C906001527A7 /* DetailPhotoProtocols.swift in Sources */,
 				AC4275C620E0C906001527A7 /* DetailPhotoPresenter.swift in Sources */,
 				AC4275C820E0C906001527A7 /* DetailPhotoInteractor.swift in Sources */,
+				ACE4CCD3210EDFEE0004176D /* PopoverViewController.swift in Sources */,
 				AC4275D720E1217E001527A7 /* CollectionViewCell.swift in Sources */,
 				AC4275D020E0C906001527A7 /* MainScreenViewController.swift in Sources */,
 				AC4275A720E0C8C6001527A7 /* AppDelegate.swift in Sources */,
