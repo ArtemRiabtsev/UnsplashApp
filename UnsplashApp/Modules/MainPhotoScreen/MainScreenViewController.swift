@@ -66,7 +66,6 @@ class MainScreenViewController: UICollectionViewController {
         self.activityView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         self.layout.invalidateLayout()
     }
-
 }
 
 //MARK: Unsplash Layout Delegate
@@ -80,7 +79,6 @@ extension MainScreenViewController: UnsplashLayoutDelegate {
         }
         return 0
     }
-        
 }
 //MARK: UISearchBar delegate
 extension MainScreenViewController: UISearchBarDelegate {
@@ -114,7 +112,6 @@ extension MainScreenViewController: UISearchBarDelegate {
         self.layout.contentHeight = 0
     }
 }
-
 //MARK: Main screen view protocol
 extension MainScreenViewController: MainScreenViewProtocol {
 
@@ -142,10 +139,29 @@ extension MainScreenViewController: MainScreenViewProtocol {
     }
     
     func notFound() {
-        let alert = UIAlertController(title: "Not found", message: "try another keyword", preferredStyle: .alert)
+        let alert = alertFuncWithOK(title: "Not found", message: "try another keyword")
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showLoadingErrorMessage(errorMessage: String) {
+        DispatchQueue.main.async {
+            self.activityView.stopAnimating()
+        }
+        let title = errorMessage
+        let alert = alertFuncWithOK(title: title, message: nil)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    //// - - accessory func
+    
+    func alertFuncWithOK(title: String, message: String?) -> UIAlertController {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
         let ok = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: nil)
         alert.addAction(ok)
-        self.present(alert, animated: true, completion: nil)
+        return alert
     }
 }
 //MARK: UICollection View Delegate
@@ -169,8 +185,6 @@ extension MainScreenViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let photoID = self.imageDataArray[indexPath.item]
-        
-        
         self.presenter?.router?.pushDetailWithSelectedPhoto(photoID: photoID.id)
     }
 }
@@ -185,7 +199,6 @@ extension MainScreenViewController {
         }
     }
     
-    
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     public override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -194,18 +207,14 @@ extension MainScreenViewController {
         if !self.photoDataArray.isEmpty {
             
             let imgInfo = self.imageDataArray[indexPath.row]
-            //- - - - - -
-            //- - - - - - -
+
             let img = self.photoDataArray[indexPath.row]
-            
             
             cell.countOfLikes.text = "❤️ \(imgInfo.likes ) "
             cell.imageView.image = img.image
             cell.userName.text = imgInfo.user.name
         }
- 
         return cell
     }
-
 }
 

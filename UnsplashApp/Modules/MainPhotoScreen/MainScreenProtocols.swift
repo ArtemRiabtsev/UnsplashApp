@@ -35,6 +35,7 @@ protocol MainScreenInteractorOutputProtocol: class {
     
     func didLoadList(imageList: ListViewModel)
     func didLoadImagesByKeyword(imageList: ListViewModel)
+    func loadingIsFailed(errorMessage: String)
 }
 
 protocol MainScreenInteractorInputProtocol: class {
@@ -54,4 +55,5 @@ protocol MainScreenViewProtocol: class {
 
     /** Presenter -> ViewController */
     func showImageList(imageList: ListViewModel)
+    func showLoadingErrorMessage(errorMessage: String)
 }

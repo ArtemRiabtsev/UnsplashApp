@@ -29,6 +29,12 @@ class MainScreenInteractor: MainScreenInteractorInputProtocol {
         viewModel.isLoaded = {
             self.presenter?.didLoadList(imageList: viewModel)
         }
+        viewModel.isFailed = { error in
+            
+            let message = self.errorMessage(error)
+            
+            self.presenter?.loadingIsFailed(errorMessage: message)
+        }
      
     }
     func loadSearchResultImageList(page: Int, keyword: String) {
@@ -36,6 +42,22 @@ class MainScreenInteractor: MainScreenInteractorInputProtocol {
         viewModel.fetchImagesByKeyword(page: page, keyword: keyword)
         viewModel.isLoaded = {
            self.presenter?.didLoadImagesByKeyword(imageList: viewModel)
+        }
+    }
+    //- - accessory func
+    func errorMessage(_ error: Error ) -> String {
+        
+        switch error {
+        case APIError.badResponse:
+            return "bad response from the server"
+        case APIError.jsonDecoder:
+            return "could not convert data"
+        case APIError.imageDownload:
+            return "photo dowloading is failed"
+        case APIError.imageConvert:
+            return "could not convert data to photo"
+        default:
+            return error.localizedDescription
         }
     }
 }

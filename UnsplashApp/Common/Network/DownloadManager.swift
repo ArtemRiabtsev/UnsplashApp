@@ -1,5 +1,5 @@
 //
-//  DownloadModel.swift
+//  DownloadManager.swift
 //  UnsplashApp
 //
 //  Created by Артем Рябцев on 26.07.2018.
@@ -10,17 +10,14 @@ import UIKit
 
 class DownloadManager: NSObject {
     
-    
     var delegate: DownloadDelegate?
     
     private var session: URLSession  {
         
-        
-        
         let configuration = URLSessionConfiguration.background(withIdentifier: "background")
-        configuration.isDiscretionary = true
+      //  configuration.isDiscretionary = true
         
-        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue())
+        let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         
         return session
     }
@@ -34,9 +31,7 @@ class DownloadManager: NSObject {
     
     private func updateProgress() {
         self.delegate?.downloadProgressUpdate(for: self.progress)
-        if progress == 1 {
-            progress = 0.0
-        }
+        
     }
     
     init(delegate:DownloadDelegate) {
@@ -58,8 +53,6 @@ class DownloadManager: NSObject {
     func downloadFinished(info: String) -> Void {
         self.delegate?.downloadFinished(info: info)
     }
-    
-    
 }
 //MARK: - URLSessionDelegate
 extension DownloadManager: URLSessionDelegate {
@@ -78,12 +71,15 @@ extension DownloadManager: URLSessionDelegate {
    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask,
                    didWriteData bytesWritten: Int64,
                    totalBytesWritten: Int64,totalBytesExpectedToWrite: Int64) {
-    print(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite))
+    
+    print(downloadTask.state)
         if totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown {
             
             self.progress += 0.5
         } else {
+            
             self.progress = Float(totalBytesWritten)/Float(totalBytesExpectedToWrite)
+            
         }
     }
 }
@@ -91,18 +87,17 @@ extension DownloadManager: URLSessionDelegate {
 extension DownloadManager: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-
-        
-        do {
-            let data = try Data(contentsOf: location)
-            let img = UIImage(data: data)
-            let info = "Image saved"
-            UIImageWriteToSavedPhotosAlbum(img!, downloadFinished(info: info),  nil, nil)
+        guard let photoData = try? Data(contentsOf: location) else {
             
-        } catch  {
-            downloadFinished(info: error.localizedDescription)
+            self.delegate?.downloadingIsFailed(APIError.imageDownload)
             return
         }
+        guard let photo = UIImage(data: photoData) else {
+            self.delegate?.downloadingIsFailed(APIError.imageConvert)
+            return
+        }
+        let info = "Image saved"
+        UIImageWriteToSavedPhotosAlbum(photo, downloadFinished(info: info),  nil, nil)
         downloadTask.cancel()
         try? FileManager.default.removeItem(at: location)
     }
@@ -110,10 +105,9 @@ extension DownloadManager: URLSessionDownloadDelegate {
         
         if let error = error {
             print(error)
-            self.downloadFinished(info: error.localizedDescription)
+            self.delegate?.downloadingIsFailed(error)
         } else {
             session.invalidateAndCancel()
         }
-       // debugPrint("Task completed: \(task), error: \(String(describing: error))")
     }
 }

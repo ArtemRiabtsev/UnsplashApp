@@ -28,6 +28,7 @@ protocol DetailPhotoPresenterProtocol: class {
 protocol DownloadDelegate: class {
     func downloadProgressUpdate(for progress: Float)
     func downloadFinished(info: String)
+    func downloadingIsFailed(_ error:Error)
 }
 
 protocol DetailPhotoInteractorOutputProtocol: class {
@@ -35,6 +36,7 @@ protocol DetailPhotoInteractorOutputProtocol: class {
     func didLoadPhoto(viewModel: SingleViewModel)
     func downloadProgress(progress: Float)
     func downloadFinished(info: String)
+    func downloadFeiled(errorMessage: String)
     /** Interactor -> Presenter */
 }
 
@@ -58,4 +60,5 @@ protocol DetailPhotoViewProtocol: class {
     func showDownloadProgress(progress: Float)
     func showPhoto(viewModel: SingleViewModel)
     func showDownloadInfo(info: String)
+    func showErrorMessage(errorMessage: String)
 }

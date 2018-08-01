@@ -39,6 +39,7 @@ class SingleViewModel: ListViewModel {
                 case .success(let image):
                     self.imageByID = image
                 case .error(let error):
+                    self.isFailed!(error)
                     print(error.localizedDescription)
                 }
             }
@@ -55,6 +56,7 @@ class SingleViewModel: ListViewModel {
                 case .success(let image):
                     self.imageByID = image
                 case .error(let error):
+                    self.isFailed!(error)
                     print(error.localizedDescription)
                 }
             }
@@ -65,12 +67,12 @@ class SingleViewModel: ListViewModel {
         
         DispatchQueue.global(qos: .background).async {
             guard let photoData = try? Data(contentsOf: (self.imageByID?.urls.small)!) else {
-                //   self.showError?(APIError.imageDownload)
+                
+                self.isFailed!(APIError.imageDownload)
                 return
             }
-            
             guard let photo = UIImage(data: photoData) else {
-                // self.showError?(APIError.imageConvert)
+                self.isFailed!(APIError.imageConvert)
                 return
             }
             DispatchQueue.main.async {

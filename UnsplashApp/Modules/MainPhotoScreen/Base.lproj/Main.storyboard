@@ -73,7 +73,7 @@
                 <viewController storyboardIdentifier="PopoverController" modalPresentationStyle="pageSheet" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xsN-aO-PLK" customClass="PopoverViewController" customModule="UnsplashApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IB3-xW-QJG">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="60"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSo-2A-mJd">
                                 <rect key="frame" x="16" y="45" width="168" height="2"/>
@@ -91,8 +91,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="xBD-L5-3Lw"/>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="150" height="60"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="150" height="70"/>
                     <size key="freeformSize" width="200" height="60"/>
                     <connections>
                         <outlet property="progressView" destination="YSo-2A-mJd" id="hDr-Ad-uTL"/>

@@ -36,4 +36,7 @@ class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutp
     func setUpViewWithSearchResult(page: Int, keyword: String) {
         self.interactor?.searchImagesByKeyword(page: page, keyword: keyword)
     }
+    func loadingIsFailed(errorMessage: String) {
+        view?.showLoadingErrorMessage(errorMessage: errorMessage)
+    }
 }

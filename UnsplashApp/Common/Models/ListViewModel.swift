@@ -26,7 +26,7 @@ class ListViewModel {
     var photos:[Photo] = []
     
     var isLoaded: (() -> Void)?
-    var isLoading: (() -> Void)?
+    var isFailed: ((_ error:Error) -> Void)?
     
     
     
@@ -45,6 +45,7 @@ class ListViewModel {
                     self.images = images
                 case .error(let error):
                     print(error.localizedDescription)
+                    self.isFailed!(error)
                 }
             }
         }
@@ -60,6 +61,7 @@ class ListViewModel {
                     self.searchResult = searchRes
                 case .error(let error):
                     print(error.localizedDescription)
+                    self.isFailed!(error)
                 }
             }
         }
@@ -75,12 +77,12 @@ class ListViewModel {
                 group.enter()
                                 
                 guard let photoData = try? Data(contentsOf: photo.urls.small) else {
-                   // self.showError?(APIError.imageDownload)
+                    self.isFailed!(APIError.imageDownload)
                     return
                 }
                 
                 guard let image = UIImage(data: photoData) else {
-                    // self.showError?(APIError.imageConvert)
+                    self.isFailed!(APIError.imageConvert)
                     return
                 }
                 let photo = Photo(image: image)

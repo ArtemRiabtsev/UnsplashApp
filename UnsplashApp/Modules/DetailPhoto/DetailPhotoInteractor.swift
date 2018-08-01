@@ -11,7 +11,7 @@ import UIKit
 class DetailPhotoInteractor: DetailPhotoInteractorInputProtocol {
    
     weak var presenter: DetailPhotoInteractorOutputProtocol?
-   
+    
     func loadPhoto(id: String) {
         let viewModel = SingleViewModel(client: UnsplashClient())
         viewModel.fetchImageByID(id: id)
@@ -19,8 +19,28 @@ class DetailPhotoInteractor: DetailPhotoInteractorInputProtocol {
         viewModel.isLoaded = {
             self.presenter?.didLoadPhoto(viewModel: viewModel)
         }
+        viewModel.isFailed = { error in
+            
+            let message = self.errorMessage(error)
+            self.presenter?.downloadFeiled(errorMessage: message)
+        }
     }
-    
+    //- - accessory func
+    func errorMessage(_ error: Error ) -> String {
+        
+        switch error {
+        case APIError.badResponse:
+            return "bad response from the server"
+        case APIError.jsonDecoder:
+            return "could not convert data"
+        case APIError.imageDownload:
+            return "photo dowloading is failed"
+        case APIError.imageConvert:
+            return "could not convert data to photo"
+        default:
+            return error.localizedDescription
+        }
+    }
 }
 
 extension DetailPhotoInteractor {
@@ -34,30 +54,30 @@ extension DetailPhotoInteractor {
         let viewModel = SingleViewModel(client: client)
         
         viewModel.fetchImageByIDWithCustomSize(id: id, width: Int(size.width), height: Int(size.height))
+
+        viewModel.isFailed = { error in
+            let message = self.errorMessage(error)
+            self.presenter?.downloadFeiled(errorMessage: message)
+        }
     }
 }
 
 extension DetailPhotoInteractor: DownloadDelegate {
     
-    
-    func downloadFinished(info: String) {
+    func downloadingIsFailed(_ error: Error){
         
-        if self.presenter != nil {
-            self.presenter?.downloadFinished(info: info)
-        } else {
-            print("presenter == nil")
-            return
-        }
+        let message = self.errorMessage(error)
+        self.presenter?.downloadFeiled(errorMessage: message)
     }
     
-    
+    // send download progress to presenter
+    func downloadFinished(info: String) {
+        
+        self.presenter?.downloadFinished(info: info)
+    }
+    // send download progress to presenter
     func downloadProgressUpdate(for progress: Float) {
-        // send download progress to presenter
-        if self.presenter != nil {
+        
             self.presenter?.downloadProgress(progress: progress)
-        } else {
-            print("presenter == nil")
-            return
-        }
     }
 }

@@ -109,10 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				AC4275A620E0C8C6001527A7 /* AppDelegate.swift */,
-				AC6FA9BC20F6194C00261838 /* Network */,
 				AC4275D120E0CC35001527A7 /* Common */,
-				AC4275B820E0C906001527A7 /* DetailPhoto */,
-				AC4275BE20E0C906001527A7 /* MainPhotoScreen */,
+				AC73921C211201EC0012373F /* Modules */,
 				AC4275AF20E0C8C9001527A7 /* LaunchScreen.storyboard */,
 				AC4275AD20E0C8C9001527A7 /* Assets.xcassets */,
 				AC4275B220E0C8C9001527A7 /* Info.plist */,
@@ -151,10 +149,8 @@
 		AC4275D120E0CC35001527A7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				AC4275D420E10882001527A7 /* ImageEntity.swift */,
-				ACB90F062109AA2F00E8A3B1 /* DownloadManager.swift */,
-				ACADC14B21062441003D35F5 /* SingleViewModel.swift */,
-				AC3E1A1E20F7535A00D38A93 /* ListViewModel.swift */,
+				AC6FA9BC20F6194C00261838 /* Network */,
+				AC73921D211202310012373F /* Models */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -165,8 +161,28 @@
 				AC6FA9BA20F60E7B00261838 /* APIClient.swift */,
 				AC6FA9C120F62F6000261838 /* UnsplashClient.swift */,
 				AC6FA9BF20F623A800261838 /* EndpointObj.swift */,
+				ACB90F062109AA2F00E8A3B1 /* DownloadManager.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		AC73921C211201EC0012373F /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				AC4275B820E0C906001527A7 /* DetailPhoto */,
+				AC4275BE20E0C906001527A7 /* MainPhotoScreen */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		AC73921D211202310012373F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ACADC14B21062441003D35F5 /* SingleViewModel.swift */,
+				AC3E1A1E20F7535A00D38A93 /* ListViewModel.swift */,
+				AC4275D420E10882001527A7 /* ImageEntity.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B29BFEAB26429C7CFFA09063 /* Frameworks */ = {

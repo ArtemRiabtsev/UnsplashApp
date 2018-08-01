@@ -14,7 +14,6 @@ enum Either<T> {
 }
 
 enum APIError: Error {
-    case unknown
     case badResponse
     case jsonDecoder
     case imageDownload

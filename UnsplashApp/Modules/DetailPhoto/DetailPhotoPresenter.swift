@@ -8,8 +8,8 @@
 
 import UIKit
 
-class DetailPhotoPresenter: DetailPhotoPresenterProtocol, DetailPhotoInteractorOutputProtocol {
-    
+class DetailPhotoPresenter: DetailPhotoPresenterProtocol {
+
     var view: DetailPhotoViewProtocol?
     var interactor: DetailPhotoInteractorInputProtocol?
     var router: DetailPhotoWireframeProtocol?
@@ -22,6 +22,10 @@ class DetailPhotoPresenter: DetailPhotoPresenterProtocol, DetailPhotoInteractorO
     func setUpView(id: String) {
         self.interactor?.getPhoto(id: id)
     }
+    
+}
+extension DetailPhotoPresenter: DetailPhotoInteractorOutputProtocol {
+    
     func didLoadPhoto(viewModel: SingleViewModel) {
         self.view?.showPhoto(viewModel: viewModel)
     }
@@ -30,5 +34,8 @@ class DetailPhotoPresenter: DetailPhotoPresenterProtocol, DetailPhotoInteractorO
     }
     func downloadFinished(info: String) {
         self.view?.showDownloadInfo(info: info)
+    }
+    func downloadFeiled(errorMessage: String) {
+        self.view?.showErrorMessage(errorMessage: errorMessage)
     }
 }
