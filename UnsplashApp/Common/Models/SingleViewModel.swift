@@ -45,24 +45,7 @@ class SingleViewModel: ListViewModel {
             }
         }
     }
-    
-    func fetchImageByID(id: String) {
-        if let client = self.client as? UnsplashClient {
-            
-            let endpoint = UnsplashEndpoint.photoByID(clientID: UnsplashClient.apiKey, photoID: id)
-            
-            client.fetchPhoto(endpoint: endpoint) { (either) in
-                switch either {
-                case .success(let image):
-                    self.imageByID = image
-                case .error(let error):
-                    self.isFailed!(error)
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-
+   
     override func getPhoto() {
         
         DispatchQueue.global(qos: .background).async {

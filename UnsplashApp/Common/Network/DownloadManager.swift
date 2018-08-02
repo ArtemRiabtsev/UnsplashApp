@@ -15,7 +15,7 @@ class DownloadManager: NSObject {
     private var session: URLSession  {
         
         let configuration = URLSessionConfiguration.background(withIdentifier: "background")
-      //  configuration.isDiscretionary = true
+        configuration.waitsForConnectivity = true
         
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         
@@ -67,24 +67,23 @@ extension DownloadManager: URLSessionDelegate {
             backgroundCompletionHandler()
         }
     }
+}
+//MARK: - URLSessionDownloadDelegate
+extension DownloadManager: URLSessionDownloadDelegate {
     // update progress view
-   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask,
-                   didWriteData bytesWritten: Int64,
-                   totalBytesWritten: Int64,totalBytesExpectedToWrite: Int64) {
-    
-    print(downloadTask.state)
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask,
+                    didWriteData bytesWritten: Int64,
+                    totalBytesWritten: Int64,totalBytesExpectedToWrite: Int64) {
+        
         if totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown {
             
-            self.progress += 0.5
+            self.progress += 0.33
         } else {
             
             self.progress = Float(totalBytesWritten)/Float(totalBytesExpectedToWrite)
             
         }
     }
-}
-//MARK: - URLSessionDownloadDelegate
-extension DownloadManager: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         guard let photoData = try? Data(contentsOf: location) else {

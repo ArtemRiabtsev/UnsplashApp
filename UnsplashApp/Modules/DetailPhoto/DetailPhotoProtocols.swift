@@ -11,7 +11,8 @@ import UIKit
 // MARK: WireFrameProtocol
 
 protocol DetailPhotoWireframeProtocol: class {
-    static func createModuleWithID(id: String) -> UIViewController
+ //   static func createModuleWithID(id: String) -> UIViewController
+    static func createModuleWithImage(id: String, image: UIImage) -> UIViewController
     func dismissDetail()
 }
 
@@ -21,7 +22,7 @@ protocol DetailPhotoPresenterProtocol: class {
     var interactor: DetailPhotoInteractorInputProtocol? { get set }
     var view: DetailPhotoViewProtocol? { get set }
     var router: DetailPhotoWireframeProtocol? { get set }
-    func setUpView(id: String)
+    func setUpView(id: String, image: UIImage)
 }
 
 // MARK: InteractorProtocol
@@ -33,7 +34,6 @@ protocol DownloadDelegate: class {
 
 protocol DetailPhotoInteractorOutputProtocol: class {
 
-    func didLoadPhoto(viewModel: SingleViewModel)
     func downloadProgress(progress: Float)
     func downloadFinished(info: String)
     func downloadFeiled(errorMessage: String)
@@ -46,7 +46,6 @@ protocol DetailPhotoInteractorInputProtocol: class {
     
     func downloadPhotoWithCustomSize(id: String, size: CGSize)
     
-    func getPhoto(id: String)
     /** Presenter -> Interactor */
 }
 
@@ -55,10 +54,13 @@ protocol DetailPhotoInteractorInputProtocol: class {
 protocol DetailPhotoViewProtocol: class {
 
     var presenter: DetailPhotoPresenterProtocol? { get set }
-    var detailImageView: UIImageView! { get set}
+    
     /** Presenter -> ViewController */
+    var sendedImage: UIImage? { get set }
+    var id: String? { get set }
+    
     func showDownloadProgress(progress: Float)
-    func showPhoto(viewModel: SingleViewModel)
     func showDownloadInfo(info: String)
     func showErrorMessage(errorMessage: String)
+    func showImage(id: String, image: UIImage)
 }

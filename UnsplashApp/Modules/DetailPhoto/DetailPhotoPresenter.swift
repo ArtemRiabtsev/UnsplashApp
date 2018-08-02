@@ -19,16 +19,14 @@ class DetailPhotoPresenter: DetailPhotoPresenterProtocol {
         self.interactor = interactor
         self.router = router
     }
-    func setUpView(id: String) {
-        self.interactor?.getPhoto(id: id)
-    }
     
+    func setUpView(id: String, image: UIImage) {
+        self.view?.id = id
+        self.view?.sendedImage = image
+    }
 }
 extension DetailPhotoPresenter: DetailPhotoInteractorOutputProtocol {
-    
-    func didLoadPhoto(viewModel: SingleViewModel) {
-        self.view?.showPhoto(viewModel: viewModel)
-    }
+
     func downloadProgress(progress: Float) {
         self.view?.showDownloadProgress(progress: progress)
     }
@@ -38,4 +36,5 @@ extension DetailPhotoPresenter: DetailPhotoInteractorOutputProtocol {
     func downloadFeiled(errorMessage: String) {
         self.view?.showErrorMessage(errorMessage: errorMessage)
     }
+
 }

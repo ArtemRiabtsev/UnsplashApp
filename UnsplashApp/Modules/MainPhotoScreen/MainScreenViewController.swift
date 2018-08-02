@@ -48,7 +48,6 @@ class MainScreenViewController: UICollectionViewController {
         self.activityView.alpha = 0.5
         self.activityView.hidesWhenStopped = true
         self.activityView.center = self.view.center
-        self.collectionView?.isUserInteractionEnabled = false
         
         let statusLabel = UILabel(frame: CGRect(x: self.activityView.center.x - 75,
                                                 y: self.activityView.center.y + 50,
@@ -134,7 +133,6 @@ extension MainScreenViewController: MainScreenViewProtocol {
             self.collectionView?.reloadData()
             self.layout.invalidateLayout()
             self.activityView.stopAnimating()
-            self.collectionView?.isUserInteractionEnabled = true
         }
     }
     
@@ -172,7 +170,6 @@ extension MainScreenViewController {
         if indexPath.row == self.photoDataArray.count - 1 {
             
             self.currentPage += 1
-            self.collectionView?.isUserInteractionEnabled = false
             self.activityView.startAnimating()
             if !self.flag {
                 self.presenter?.setUpView(page: self.currentPage)
@@ -184,8 +181,9 @@ extension MainScreenViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let image = self.photoDataArray[indexPath.item]
         let photoID = self.imageDataArray[indexPath.item]
-        self.presenter?.router?.pushDetailWithSelectedPhoto(photoID: photoID.id)
+        self.presenter?.pushDetail(id: photoID.id, image: image.image)
     }
 }
 //MARK: UICollection View Data Source

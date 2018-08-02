@@ -13,12 +13,13 @@
         <!--Detail Photo View Controller-->
         <scene sceneID="PQf-Cj-oPM">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tJQ-VP-iWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="DetailPhotoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Hme-S5-daw" customClass="DetailPhotoViewController" customModule="UnsplashApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Nf-Fc-rFU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kgD-J9-MBO">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="no_image" translatesAutoresizingMaskIntoConstraints="NO" id="kgD-J9-MBO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
@@ -27,9 +28,9 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="fyp-of-QEm" appends="YES" id="Om4-In-37m"/>
                                     <outletCollection property="gestureRecognizers" destination="cZW-0v-psh" appends="YES" id="tjo-bP-ouz"/>
                                     <outletCollection property="gestureRecognizers" destination="DeI-EB-bxS" appends="YES" id="4ZQ-e3-wyU"/>
+                                    <outletCollection property="gestureRecognizers" destination="Nnp-gq-kB7" appends="YES" id="KHK-JY-Tiv"/>
                                 </connections>
                             </imageView>
                         </subviews>
@@ -45,15 +46,9 @@
                     </view>
                     <size key="freeformSize" width="414" height="736"/>
                     <connections>
-                        <outlet property="detailImageView" destination="kgD-J9-MBO" id="bj1-Gx-Gy6"/>
+                        <outlet property="detailImageView" destination="kgD-J9-MBO" id="j4Q-zM-EuK"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tJQ-VP-iWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="fyp-of-QEm">
-                    <connections>
-                        <action selector="viewPinch:" destination="Hme-S5-daw" id="vyH-pa-Akb"/>
-                    </connections>
-                </pinchGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="cZW-0v-psh">
                     <connections>
                         <action selector="tapView:" destination="Hme-S5-daw" id="AZP-fe-0wt"/>
@@ -64,6 +59,11 @@
                         <action selector="panView:" destination="Hme-S5-daw" id="GLU-D8-uAL"/>
                     </connections>
                 </panGestureRecognizer>
+                <pinchGestureRecognizer id="Nnp-gq-kB7">
+                    <connections>
+                        <action selector="viewPinch:" destination="Hme-S5-daw" id="zoF-l1-L0U"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="387" y="126"/>
         </scene>
@@ -80,7 +80,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="progressTintColor" name="systemPinkColor" catalog="System" colorSpace="catalog"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNm-dX-fDN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="conection..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNm-dX-fDN">
                                 <rect key="frame" x="16" y="16" width="168" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -105,7 +105,7 @@
         <!--Main Screen View Controller-->
         <scene sceneID="knn-hs-AgS">
             <objects>
-                <collectionViewController storyboardIdentifier="MainScreenViewController" id="B4l-Dv-jQJ" customClass="MainScreenViewController" customModule="UnsplashApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="MainScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="B4l-Dv-jQJ" customClass="MainScreenViewController" customModule="UnsplashApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="LQ6-Dz-Azw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

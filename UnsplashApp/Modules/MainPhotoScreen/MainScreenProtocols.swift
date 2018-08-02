@@ -12,7 +12,7 @@ import UIKit
 
 protocol MainScreenWireframeProtocol: class {
     static func createModule() -> UIViewController
-    func pushDetailWithSelectedPhoto(photoID: String) -> Void
+    func pushDetailWithSelectedPhoto(photoID: String, image: UIImage)
 }
 
 // MARK: PresenterProtocol
@@ -25,6 +25,7 @@ protocol MainScreenPresenterProtocol: class {
     
     func setUpView(page: Int)
     func setUpViewWithSearchResult(page: Int, keyword: String)
+    func pushDetail(id: String, image: UIImage)
 }
 
 // MARK: InteractorProtocol

@@ -39,4 +39,7 @@ class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutp
     func loadingIsFailed(errorMessage: String) {
         view?.showLoadingErrorMessage(errorMessage: errorMessage)
     }
+    func pushDetail(id: String, image: UIImage) {
+        self.router?.pushDetailWithSelectedPhoto(photoID: id, image: image)
+    }
 }

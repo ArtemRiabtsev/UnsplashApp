@@ -9,6 +9,12 @@
 import UIKit
 
 class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
+    // - - DetailPhotoViewProtocol -stored properties
+    var id: String?
+    
+    var sendedImage: UIImage?
+    
+    var presenter: DetailPhotoPresenterProtocol?
     
     var imageViewSize: CGSize?
     
@@ -25,19 +31,22 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
         return ((imageViewSize?.width)! / self.detailImageView.frame.size.width, (imageViewSize?.height)! / self.detailImageView.frame.size.height)
     }
     
-   
-    var photoID: String?
-    
-    var presenter: DetailPhotoPresenterProtocol?
-
     @IBOutlet weak var detailImageView: UIImageView!
     
     var popoverController: PopoverViewController?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem =  UIBarButtonItem(title: "Download", style: .plain, target: self, action: #selector(downloadImage))
+                
+        let barButtonItem = UIBarButtonItem(title: "Download", style: .plain, target: self, action: #selector(downloadImage))
+        self.navigationItem.rightBarButtonItem = barButtonItem
+        
+        self.detailImageView.image = sendedImage
+        
+        self.imageViewSize = self.detailImageView.frame.size
+        setTitleWidthHeight()
     }
+    
     //MARK: ACTIONS
     @IBAction func panView(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
@@ -104,7 +113,8 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
         self.popoverController = creatPopoverController() as? PopoverViewController
         
         self.present(self.popoverController!, animated: true, completion: nil)
-        self.presenter?.interactor?.downloadPhotoWithCustomSize(id: self.photoID!, size: self.resizedImageSize)
+        
+        self.presenter?.interactor?.downloadPhotoWithCustomSize(id: id!, size: self.resizedImageSize)
         
     }
     
@@ -125,21 +135,11 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
 
 //MARK: Detail Photo View Protocol
 extension DetailPhotoViewController {
-    func showPhoto(viewModel: SingleViewModel) {
-        
-        self.imageViewSize = self.detailImageView.frame.size
-        
-        self.photoID = viewModel.imageByID?.id
-        
-        let image = viewModel.photo?.image
-        
-        self.detailImageView.image = image
-        setTitleWidthHeight()
-    }
-    
+   
     func showDownloadProgress(progress: Float) {        
 
         DispatchQueue.main.async {
+            self.popoverController?.statusLabel.text = "loading..."
             self.popoverController?.progressView.setProgress(progress, animated: true)
         }
 
@@ -149,18 +149,38 @@ extension DetailPhotoViewController {
         
         let alert = self.alertFuncWithOK(title: info, message: nil)
         let viewController = self.navigationController?.topViewController
-            self.popoverController?.dismiss(animated: true, completion: {
+        
+        if let popVC = self.popoverController {
+            popVC.dismiss(animated: true, completion: {
                 viewController?.present(alert, animated: true, completion: nil)
                 alert.view.center = (viewController?.view.center)!
             })
+        } else {
+            viewController?.present(alert, animated: true, completion: nil)
+            alert.view.center = (viewController?.view.center)!
+        }
+        
    }
     func showErrorMessage(errorMessage: String) {
         let alert = self.alertFuncWithOK(title: errorMessage, message: nil)
-        self.popoverController?.dismiss(animated: true, completion: {
-            self.present(alert, animated: true, completion: nil)
+        if let popVC = self.popoverController {
+            popVC.dismiss(animated: true, completion: {
+                self.present(alert, animated: true, completion: nil)
             })
+        } else {
+             self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func showImage(id: String, image: UIImage) {
+
+        self.sendedImage = image
+        self.id = id
+        
+        self.navigationItem.rightBarButtonItem?.isEnabled = true
     }
 }
+
 //MARK: UIPopover Presentation Controller Delegate
 
 extension DetailPhotoViewController: UIPopoverPresentationControllerDelegate {

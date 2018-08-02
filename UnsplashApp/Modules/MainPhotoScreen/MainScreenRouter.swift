@@ -14,7 +14,9 @@ class MainScreenRouter: MainScreenWireframeProtocol {
 
     static func createModule() -> UIViewController {
         // Change to get view from storyboard if not using progammatic UI
-        let view = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainScreenViewController") as! MainScreenViewProtocol
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        
+        let view = storyboard.instantiateViewController(withIdentifier: "MainScreenViewController") as! MainScreenViewProtocol
         
         let interactor = MainScreenInteractor()
         let router = MainScreenRouter()
@@ -29,8 +31,8 @@ class MainScreenRouter: MainScreenWireframeProtocol {
         return view as! UIViewController
     }
 
-    func pushDetailWithSelectedPhoto(photoID: String) {
-        let detailViewController = DetailPhotoRouter.createModuleWithID(id: photoID) as! DetailPhotoViewController
+    func pushDetailWithSelectedPhoto(photoID: String, image: UIImage) {
+        let detailViewController = DetailPhotoRouter.createModuleWithImage(id: photoID, image: image)
         self.viewController?.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
