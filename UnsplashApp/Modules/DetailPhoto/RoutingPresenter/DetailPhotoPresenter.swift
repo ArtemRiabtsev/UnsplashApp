@@ -24,6 +24,10 @@ class DetailPhotoPresenter: DetailPhotoPresenterProtocol {
         self.view?.id = id
         self.view?.sendedImage = image
     }
+    func downloadPhotoByIdWithSize(id: String, size: CGSize) {
+        
+        self.interactor?.downloadPhotoWithCustomSize(id: id, size: size)
+    }
 }
 extension DetailPhotoPresenter: DetailPhotoInteractorOutputProtocol {
 

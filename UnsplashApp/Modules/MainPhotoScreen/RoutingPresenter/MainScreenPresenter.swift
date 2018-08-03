@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutputProtocol {
+class MainScreenPresenter: MainScreenPresenterProtocol {
 
     var router: MainScreenWireframeProtocol?
     
@@ -21,13 +21,6 @@ class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutp
         self.router = router
     }
 
-    func didLoadList(imageList: ListViewModel) {
-        view?.showImageList(imageList: imageList)
-    }
-    
-    func didLoadImagesByKeyword(imageList: ListViewModel) {
-        view?.showImageList(imageList: imageList)
-    }
     
     func setUpView(page: Int) {
         self.interactor?.getImageList(page: page)
@@ -36,10 +29,23 @@ class MainScreenPresenter: MainScreenPresenterProtocol, MainScreenInteractorOutp
     func setUpViewWithSearchResult(page: Int, keyword: String) {
         self.interactor?.searchImagesByKeyword(page: page, keyword: keyword)
     }
-    func loadingIsFailed(errorMessage: String) {
-        view?.showLoadingErrorMessage(errorMessage: errorMessage)
-    }
+    
     func pushDetail(id: String, image: UIImage) {
         self.router?.pushDetailWithSelectedPhoto(photoID: id, image: image)
+    }
+}
+ /** Interactor -> Presenter */
+extension MainScreenPresenter: MainScreenInteractorOutputProtocol {
+    
+    func didLoadList(imageList: ListViewModel) {
+        view?.showImageList(imageList: imageList)
+    }
+    
+    func didLoadImagesByKeyword(imageList: ListViewModel) {
+        view?.showImageList(imageList: imageList)
+    }
+    
+    func loadingIsFailed(errorMessage: String) {
+        view?.showLoadingErrorMessage(errorMessage: errorMessage)
     }
 }

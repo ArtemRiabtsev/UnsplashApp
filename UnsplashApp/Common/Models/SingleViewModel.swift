@@ -10,25 +10,20 @@ import UIKit
 
 class SingleViewModel: ListViewModel {
     
-    var imageByID: ImageInfo?  {
+    var imageByIdWithCustomSize: ImageInfo? {
+        
         didSet {
-            if let url = imageByID?.urls.custom {
+            if let url = imageByIdWithCustomSize?.urls.custom {
                 if let client = self.client as? UnsplashClient {
                     let endpoint = UnsplashEndpoint.downloadPhoto(url: url.absoluteString)
                     client.downloadPhoto(endpoint: endpoint)
+                } else {
+                    self.isFailed!(APIError.imageDownload)
                 }
-            } else {
-                self.getPhoto()
             }
         }
     }
-    
-    var photo: Photo? {
-        didSet {
-            self.isLoaded!()
-        }
-    }
-
+//when prompted with fields of height and width, the answer is returned with additional URL to load photos with the specified size
     func fetchImageByIDWithCustomSize(id: String, width: Int, height: Int) {
         if let client = self.client as? UnsplashClient {
             
@@ -37,29 +32,11 @@ class SingleViewModel: ListViewModel {
             client.fetchPhoto(endpoint: endpoint) { (either) in
                 switch either {
                 case .success(let image):
-                    self.imageByID = image
+                    self.imageByIdWithCustomSize = image
                 case .error(let error):
                     self.isFailed!(error)
                     print(error.localizedDescription)
                 }
-            }
-        }
-    }
-   
-    override func getPhoto() {
-        
-        DispatchQueue.global(qos: .background).async {
-            guard let photoData = try? Data(contentsOf: (self.imageByID?.urls.small)!) else {
-                
-                self.isFailed!(APIError.imageDownload)
-                return
-            }
-            guard let photo = UIImage(data: photoData) else {
-                self.isFailed!(APIError.imageConvert)
-                return
-            }
-            DispatchQueue.main.async {
-                 self.photo = Photo(image: photo)
             }
         }
     }

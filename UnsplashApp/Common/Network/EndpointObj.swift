@@ -24,13 +24,11 @@ extension Endpoint {
         
         return urlComponents!
     }
-    
-    
+ 
     var request: URLRequest {
         
         return URLRequest(url: urlComponents.url!)
     }
-    
 }
 
 enum UnsplashEndpoint : Endpoint {

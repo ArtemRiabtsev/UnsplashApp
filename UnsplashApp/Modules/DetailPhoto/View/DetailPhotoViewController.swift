@@ -19,7 +19,7 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
     var imageViewSize: CGSize?
     
     var resizedImageSize: CGSize {
-        
+
         let height = (self.detailImageView.image?.size.height)! / self.scale.h
         let width = (self.detailImageView.image?.size.width)! / self.scale.w
         let size = CGSize(width: Int(width), height: Int(height))
@@ -42,12 +42,15 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
         self.navigationItem.rightBarButtonItem = barButtonItem
         
         self.detailImageView.image = sendedImage
-        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         self.imageViewSize = self.detailImageView.frame.size
         setTitleWidthHeight()
     }
     
     //MARK: ACTIONS
+    // gestures actions
     @IBAction func panView(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         if let view = sender.view {
@@ -80,6 +83,7 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
             }
         }
     }
+    // download action
     @objc func downloadImage(sender: UIBarButtonItem) -> Void {
         
         let alert = UIAlertController(title: "Download photo?", message: "Size: \(self.resizedImageSize)", preferredStyle: .alert)
@@ -98,27 +102,25 @@ class DetailPhotoViewController: UIViewController, DetailPhotoViewProtocol {
     
     //MARK: accessory func
     //
-    func creatPopoverController() -> UIViewController {
+    func creatPopoverController() -> UIViewController {// creat a popover with indicator and progress
         
         let popController = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopoverController")
         popController.modalPresentationStyle = .popover
         popController.popoverPresentationController?.delegate = self
-        popController.preferredContentSize = CGSize(width: 150, height: 70)
         return popController
     }
     
     // 
-    func stardDownload() {
+    func stardDownload() { // present popover and 
         
         self.popoverController = creatPopoverController() as? PopoverViewController
         
         self.present(self.popoverController!, animated: true, completion: nil)
         
-        self.presenter?.interactor?.downloadPhotoWithCustomSize(id: id!, size: self.resizedImageSize)
-        
+        self.presenter?.downloadPhotoByIdWithSize(id: id!, size: self.resizedImageSize)
     }
     
-    func setTitleWidthHeight() -> Void {
+    func setTitleWidthHeight()  {// updated title when size chaged
         
         self.navigationItem.title = "w: \(self.resizedImageSize.width) h: \(self.resizedImageSize.height)"
     }
@@ -139,6 +141,7 @@ extension DetailPhotoViewController {
     func showDownloadProgress(progress: Float) {        
 
         DispatchQueue.main.async {
+            self.popoverController?.activityIndicator.stopAnimating()
             self.popoverController?.statusLabel.text = "loading..."
             self.popoverController?.progressView.setProgress(progress, animated: true)
         }

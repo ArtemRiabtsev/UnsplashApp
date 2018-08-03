@@ -6,5 +6,5 @@ target 'UnsplashApp' do
   use_frameworks!
 
   # Pods for UnsplashApp
-   
+   pod 'Typhoon'
 end

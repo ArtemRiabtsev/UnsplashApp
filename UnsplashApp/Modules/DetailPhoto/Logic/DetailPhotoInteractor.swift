@@ -11,22 +11,7 @@ import UIKit
 class DetailPhotoInteractor: DetailPhotoInteractorInputProtocol {
    
     weak var presenter: DetailPhotoInteractorOutputProtocol?
-    /*
-    func loadPhoto(id: String) {
-        
-        let viewModel = SingleViewModel(client: UnsplashClient())
-        viewModel.fetchImageByID(id: id)
-        
-        viewModel.isLoaded = {
-            self.presenter?.didLoadPhoto(viewModel: viewModel)
-        }
-        viewModel.isFailed = { error in
-            
-            let message = self.errorMessage(error)
-            self.presenter?.downloadFeiled(errorMessage: message)
-        }
-    }
- */
+    
     //- - accessory func
     func errorMessage(_ error: Error ) -> String {
         
@@ -43,24 +28,19 @@ class DetailPhotoInteractor: DetailPhotoInteractorInputProtocol {
             return error.localizedDescription
         }
     }
-}
-
-extension DetailPhotoInteractor {
-    /*
-    func getPhoto(id: String) {
-        loadPhoto(id: id)
-    }
-    */
+    
     func downloadPhotoWithCustomSize(id: String, size: CGSize) {
         
         let downloadManager = DownloadManager(delegate: self)
         
         let client = UnsplashClient(downloadManager)
+        
         let viewModel = SingleViewModel(client: client)
         
         viewModel.fetchImageByIDWithCustomSize(id: id, width: Int(size.width), height: Int(size.height))
-
+        
         viewModel.isFailed = { error in
+            
             let message = self.errorMessage(error)
             self.presenter?.downloadFeiled(errorMessage: message)
         }

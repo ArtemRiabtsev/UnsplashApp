@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +14,6 @@
         <!--Detail Photo View Controller-->
         <scene sceneID="PQf-Cj-oPM">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tJQ-VP-iWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="DetailPhotoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Hme-S5-daw" customClass="DetailPhotoViewController" customModule="UnsplashApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Nf-Fc-rFU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -49,6 +49,7 @@
                         <outlet property="detailImageView" destination="kgD-J9-MBO" id="j4Q-zM-EuK"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tJQ-VP-iWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="cZW-0v-psh">
                     <connections>
                         <action selector="tapView:" destination="Hme-S5-daw" id="AZP-fe-0wt"/>
@@ -75,25 +76,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="200" height="60"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YSo-2A-mJd">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YSo-2A-mJd">
                                 <rect key="frame" x="16" y="45" width="168" height="2"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="progressTintColor" name="systemPinkColor" catalog="System" colorSpace="catalog"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="conection..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNm-dX-fDN">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0Tj-DU-VTa">
+                                <rect key="frame" x="82" y="8" width="37" height="37"/>
+                                <color key="color" name="systemPinkColor" catalog="System" colorSpace="catalog"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNm-dX-fDN">
                                 <rect key="frame" x="16" y="16" width="168" height="21"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YSo-2A-mJd" firstAttribute="top" secondItem="TNm-dX-fDN" secondAttribute="bottom" constant="8" symbolic="YES" id="3l1-wl-4yg"/>
+                            <constraint firstItem="0Tj-DU-VTa" firstAttribute="top" secondItem="xBD-L5-3Lw" secondAttribute="top" constant="8" id="5Ob-Oi-0KA"/>
+                            <constraint firstItem="0Tj-DU-VTa" firstAttribute="centerY" secondItem="TNm-dX-fDN" secondAttribute="centerY" id="6KF-7P-2mv"/>
+                            <constraint firstItem="YSo-2A-mJd" firstAttribute="leading" secondItem="IB3-xW-QJG" secondAttribute="leadingMargin" id="BCI-l6-YA9"/>
+                            <constraint firstItem="0Tj-DU-VTa" firstAttribute="centerX" secondItem="TNm-dX-fDN" secondAttribute="centerX" id="CSy-ZL-db9"/>
+                            <constraint firstItem="0Tj-DU-VTa" firstAttribute="centerX" secondItem="YSo-2A-mJd" secondAttribute="centerX" id="L1r-CO-4I5"/>
+                            <constraint firstItem="YSo-2A-mJd" firstAttribute="top" secondItem="0Tj-DU-VTa" secondAttribute="bottom" id="io4-Zq-klB"/>
+                            <constraint firstItem="YSo-2A-mJd" firstAttribute="leading" secondItem="TNm-dX-fDN" secondAttribute="leading" id="lcj-Y7-6TJ"/>
+                            <constraint firstItem="0Tj-DU-VTa" firstAttribute="centerX" secondItem="IB3-xW-QJG" secondAttribute="centerX" id="lrx-FR-NHa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="xBD-L5-3Lw"/>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="150" height="70"/>
                     <size key="freeformSize" width="200" height="60"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="0Tj-DU-VTa" id="P29-9Q-BhI"/>
                         <outlet property="progressView" destination="YSo-2A-mJd" id="hDr-Ad-uTL"/>
                         <outlet property="statusLabel" destination="TNm-dX-fDN" id="lGK-3m-0el"/>
                     </connections>

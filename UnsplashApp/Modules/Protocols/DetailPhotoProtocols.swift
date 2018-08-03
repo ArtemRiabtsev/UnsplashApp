@@ -11,9 +11,8 @@ import UIKit
 // MARK: WireFrameProtocol
 
 protocol DetailPhotoWireframeProtocol: class {
- //   static func createModuleWithID(id: String) -> UIViewController
     static func createModuleWithImage(id: String, image: UIImage) -> UIViewController
-    func dismissDetail()
+//    func dismissDetail()
 }
 
 // MARK: PresenterProtocol
@@ -23,6 +22,7 @@ protocol DetailPhotoPresenterProtocol: class {
     var view: DetailPhotoViewProtocol? { get set }
     var router: DetailPhotoWireframeProtocol? { get set }
     func setUpView(id: String, image: UIImage)
+    func downloadPhotoByIdWithSize(id: String, size: CGSize)
 }
 
 // MARK: InteractorProtocol

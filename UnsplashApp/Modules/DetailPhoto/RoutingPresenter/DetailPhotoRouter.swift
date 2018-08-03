@@ -32,8 +32,9 @@ class DetailPhotoRouter: DetailPhotoWireframeProtocol {
  
         return view as! UIViewController
     }
-    
+    /*
     func dismissDetail() {
         self.viewController?.dismiss(animated: true, completion: nil)
     }
+ */
 }

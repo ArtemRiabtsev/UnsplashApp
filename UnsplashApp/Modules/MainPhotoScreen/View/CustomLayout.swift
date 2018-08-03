@@ -40,7 +40,6 @@ class CustomLayout: UICollectionViewLayout {
         guard let collectionView = collectionView else {
             return
         }
-       // cache.removeAll()
         //2
         let columnWidth = contentWidth / CGFloat(numberOfColumns)
         var xOffset = [CGFloat]()

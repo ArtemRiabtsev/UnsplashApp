@@ -14,17 +14,15 @@ class MainScreenViewController: UICollectionViewController {
     var photoDataArray = Array<Photo>()
     var imageDataArray = Array<ImageInfo>()
     var layout = CustomLayout()
+    var maxPageNumber = 999
     let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    var currentPage = 1
 
     var flag = false {
         didSet{
-            
             currentPage = 1
         }
     }
-    var currentPage = 1
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +66,7 @@ class MainScreenViewController: UICollectionViewController {
 }
 
 //MARK: Unsplash Layout Delegate
-
+// Returns the height of the photo to calculate the height of the cell
 extension MainScreenViewController: UnsplashLayoutDelegate {
     func collectionView(_collectionView collectionView: UICollectionView,
                         heightForPhotoAtIndexPath indexPath:IndexPath) -> (CGFloat) {
@@ -97,6 +95,7 @@ extension MainScreenViewController: UISearchBarDelegate {
         if self.flag {
             self.activityView.startAnimating()
             self.flag = false
+            self.maxPageNumber = 999
             self.cleareData()
             self.presenter?.setUpView(page: self.currentPage)
         }
@@ -121,6 +120,7 @@ extension MainScreenViewController: MainScreenViewProtocol {
         case self.flag == true && imageList.searchResult?.total == 0:
             notFound()
         case self.flag && imageList.searchResult?.total != 0 && self.currentPage == 1:
+            self.maxPageNumber = (imageList.searchResult?.total_pages)!
             cleareData()
         default:
             break
@@ -170,11 +170,17 @@ extension MainScreenViewController {
         if indexPath.row == self.photoDataArray.count - 1 {
             
             self.currentPage += 1
-            self.activityView.startAnimating()
-            if !self.flag {
-                self.presenter?.setUpView(page: self.currentPage)
-            }else {
-                self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
+            if self.currentPage <= self.maxPageNumber {
+                
+                self.activityView.startAnimating()
+                
+                if !self.flag {
+                    self.presenter?.setUpView(page: self.currentPage)
+                }else {
+                    self.presenter?.setUpViewWithSearchResult(page: self.currentPage, keyword: searchBar.text!)
+                }
+            } else {
+                return
             }
         }
     }
@@ -190,11 +196,8 @@ extension MainScreenViewController {
 extension MainScreenViewController {
     
     public override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if !self.photoDataArray.isEmpty {
-            return self.photoDataArray.count
-        } else {
-            return 1
-        }
+        
+        return self.photoDataArray.count
     }
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:

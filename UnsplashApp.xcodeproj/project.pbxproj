@@ -111,7 +111,6 @@
 				AC4275A620E0C8C6001527A7 /* AppDelegate.swift */,
 				AC4275D120E0CC35001527A7 /* Common */,
 				AC73921C211201EC0012373F /* Modules */,
-				AC4275AF20E0C8C9001527A7 /* LaunchScreen.storyboard */,
 				AC4275AD20E0C8C9001527A7 /* Assets.xcassets */,
 				AC4275B220E0C8C9001527A7 /* Info.plist */,
 			);
@@ -121,12 +120,9 @@
 		AC4275B820E0C906001527A7 /* DetailPhoto */ = {
 			isa = PBXGroup;
 			children = (
-				AC4275BB20E0C906001527A7 /* DetailPhotoInteractor.swift */,
-				AC4275B920E0C906001527A7 /* DetailPhotoPresenter.swift */,
-				AC4275BA20E0C906001527A7 /* DetailPhotoProtocols.swift */,
-				AC4275BC20E0C906001527A7 /* DetailPhotoRouter.swift */,
-				AC4275BD20E0C906001527A7 /* DetailPhotoViewController.swift */,
-				ACE4CCD2210EDFEE0004176D /* PopoverViewController.swift */,
+				ACD640C621145D9800901E3E /* Logic */,
+				ACD640C521145D8600901E3E /* RoutingPresenter */,
+				ACD640C421145D6F00901E3E /* View */,
 			);
 			path = DetailPhoto;
 			sourceTree = "<group>";
@@ -134,14 +130,9 @@
 		AC4275BE20E0C906001527A7 /* MainPhotoScreen */ = {
 			isa = PBXGroup;
 			children = (
-				AC4275C120E0C906001527A7 /* MainScreenInteractor.swift */,
-				AC4275C220E0C906001527A7 /* MainScreenPresenter.swift */,
-				AC4275C320E0C906001527A7 /* MainScreenProtocols.swift */,
-				AC4275C420E0C906001527A7 /* MainScreenRouter.swift */,
-				AC4275BF20E0C906001527A7 /* Main.storyboard */,
-				AC4275C520E0C906001527A7 /* MainScreenViewController.swift */,
-				AC4275D620E1217E001527A7 /* CollectionViewCell.swift */,
-				ACCC698720ECA0AC00339598 /* CustomLayout.swift */,
+				ACD640C221145AF600901E3E /* Logic */,
+				ACD640C121145AD000901E3E /* RoutingPresenter */,
+				ACD640C021145A9A00901E3E /* View */,
 			);
 			path = MainPhotoScreen;
 			sourceTree = "<group>";
@@ -169,6 +160,7 @@
 		AC73921C211201EC0012373F /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				ACD640C321145C3200901E3E /* Protocols */,
 				AC4275B820E0C906001527A7 /* DetailPhoto */,
 				AC4275BE20E0C906001527A7 /* MainPhotoScreen */,
 			);
@@ -183,6 +175,70 @@
 				AC4275D420E10882001527A7 /* ImageEntity.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		ACD640C021145A9A00901E3E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AC4275BF20E0C906001527A7 /* Main.storyboard */,
+				AC4275D620E1217E001527A7 /* CollectionViewCell.swift */,
+				ACCC698720ECA0AC00339598 /* CustomLayout.swift */,
+				AC4275C520E0C906001527A7 /* MainScreenViewController.swift */,
+				AC4275AF20E0C8C9001527A7 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		ACD640C121145AD000901E3E /* RoutingPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				AC4275C420E0C906001527A7 /* MainScreenRouter.swift */,
+				AC4275C220E0C906001527A7 /* MainScreenPresenter.swift */,
+			);
+			path = RoutingPresenter;
+			sourceTree = "<group>";
+		};
+		ACD640C221145AF600901E3E /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				AC4275C120E0C906001527A7 /* MainScreenInteractor.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		ACD640C321145C3200901E3E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AC4275BA20E0C906001527A7 /* DetailPhotoProtocols.swift */,
+				AC4275C320E0C906001527A7 /* MainScreenProtocols.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		ACD640C421145D6F00901E3E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AC4275BD20E0C906001527A7 /* DetailPhotoViewController.swift */,
+				ACE4CCD2210EDFEE0004176D /* PopoverViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		ACD640C521145D8600901E3E /* RoutingPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				AC4275B920E0C906001527A7 /* DetailPhotoPresenter.swift */,
+				AC4275BC20E0C906001527A7 /* DetailPhotoRouter.swift */,
+			);
+			path = RoutingPresenter;
+			sourceTree = "<group>";
+		};
+		ACD640C621145D9800901E3E /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				AC4275BB20E0C906001527A7 /* DetailPhotoInteractor.swift */,
+			);
+			path = Logic;
 			sourceTree = "<group>";
 		};
 		B29BFEAB26429C7CFFA09063 /* Frameworks */ = {
@@ -303,23 +359,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-UnsplashApp/Pods-UnsplashApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CarambaKit/CarambaKit.framework",
-				"${BUILT_PRODUCTS_DIR}/HTTPStatusCodes/HTTPStatusCodes.framework",
-				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
-				"${BUILT_PRODUCTS_DIR}/UnsplashKit/UnsplashKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Typhoon/Typhoon.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CarambaKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HTTPStatusCodes.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UnsplashKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Typhoon.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

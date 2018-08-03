@@ -10,7 +10,12 @@ import UIKit
 
 class DownloadManager: NSObject {
     
-    var delegate: DownloadDelegate?
+    var delegate: DownloadDelegate // monitors the download status
+    
+    init(delegate:DownloadDelegate) {
+        
+        self.delegate = delegate
+    }
     
     private var session: URLSession  {
         
@@ -30,13 +35,8 @@ class DownloadManager: NSObject {
     // Gives float for download progress - for delegate
     
     private func updateProgress() {
-        self.delegate?.downloadProgressUpdate(for: self.progress)
+        self.delegate.downloadProgressUpdate(for: self.progress)
         
-    }
-    
-    init(delegate:DownloadDelegate) {
-
-        self.delegate = delegate
     }
     
     //////////// Download
@@ -51,7 +51,8 @@ class DownloadManager: NSObject {
     }
     
     func downloadFinished(info: String) -> Void {
-        self.delegate?.downloadFinished(info: info)
+        
+        self.delegate.downloadFinished(info: info)
     }
 }
 //MARK: - URLSessionDelegate
@@ -75,7 +76,7 @@ extension DownloadManager: URLSessionDownloadDelegate {
                     didWriteData bytesWritten: Int64,
                     totalBytesWritten: Int64,totalBytesExpectedToWrite: Int64) {
         
-        if totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown {
+        if totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown {// when there is no information about the length of bytes
             
             self.progress += 0.33
         } else {
@@ -88,15 +89,15 @@ extension DownloadManager: URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         guard let photoData = try? Data(contentsOf: location) else {
             
-            self.delegate?.downloadingIsFailed(APIError.imageDownload)
+            self.delegate.downloadingIsFailed(APIError.imageDownload)
             return
         }
         guard let photo = UIImage(data: photoData) else {
-            self.delegate?.downloadingIsFailed(APIError.imageConvert)
+            self.delegate.downloadingIsFailed(APIError.imageConvert)
             return
         }
         let info = "Image saved"
-        UIImageWriteToSavedPhotosAlbum(photo, downloadFinished(info: info),  nil, nil)
+        UIImageWriteToSavedPhotosAlbum(photo, downloadFinished(info: info),  nil, nil)//save photo to Photos Album
         downloadTask.cancel()
         try? FileManager.default.removeItem(at: location)
     }
@@ -104,7 +105,7 @@ extension DownloadManager: URLSessionDownloadDelegate {
         
         if let error = error {
             print(error)
-            self.delegate?.downloadingIsFailed(error)
+            self.delegate.downloadingIsFailed(error)
         } else {
             session.invalidateAndCancel()
         }

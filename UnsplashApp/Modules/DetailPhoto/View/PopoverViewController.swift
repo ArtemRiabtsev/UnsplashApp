@@ -12,9 +12,12 @@ class PopoverViewController: UIViewController {
 
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.startAnimating()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
