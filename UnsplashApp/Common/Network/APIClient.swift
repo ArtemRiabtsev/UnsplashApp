@@ -33,7 +33,6 @@ extension APIClient {
         return URLSession.shared
     }
     
-    
     func get<T: Codable>(request: URLRequest, completion: @escaping (Either<[T]>) -> Void ) {
         
         let task = self.session.dataTask(with: request) { (data, response, error) in

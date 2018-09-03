@@ -10,6 +10,7 @@ import Foundation
 
 class MainScreenInteractor: MainScreenInteractorInputProtocol {
     weak var presenter: MainScreenInteractorOutputProtocol?
+    var unsplashClient = UnsplashClient()
 
     func getImageList(page: Int) {
         
@@ -24,7 +25,7 @@ class MainScreenInteractor: MainScreenInteractorInputProtocol {
     //load data from network
     func loadImageList(page: Int) {
         
-        let viewModel = ListViewModel(client: UnsplashClient())
+        let viewModel = ListViewModel(client: self.unsplashClient)
         viewModel.fetchLatestImages(page: page)
         viewModel.isLoaded = {
             self.presenter?.didLoadList(imageList: viewModel)
@@ -38,7 +39,7 @@ class MainScreenInteractor: MainScreenInteractorInputProtocol {
      
     }
     func loadSearchResultImageList(page: Int, keyword: String) {
-        let viewModel = ListViewModel(client: UnsplashClient())
+        let viewModel = ListViewModel(client: self.unsplashClient)
         viewModel.fetchImagesByKeyword(page: page, keyword: keyword)
         viewModel.isLoaded = {
            self.presenter?.didLoadImagesByKeyword(imageList: viewModel)

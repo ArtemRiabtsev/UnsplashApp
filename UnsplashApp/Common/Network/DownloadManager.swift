@@ -11,21 +11,20 @@ import UIKit
 class DownloadManager: NSObject {
     
     var delegate: DownloadDelegate // monitors the download status
-    
-    init(delegate:DownloadDelegate) {
-        
-        self.delegate = delegate
-    }
-    
-    private var session: URLSession  {
-        
+    private var session: URLSession {
         let configuration = URLSessionConfiguration.background(withIdentifier: "background")
         configuration.waitsForConnectivity = true
         
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-        
         return session
     }
+    
+    init(delegate:DownloadDelegate) {
+    
+        self.delegate = delegate
+        
+    }
+    
     
     var progress: Float = 0.0 {
         didSet {

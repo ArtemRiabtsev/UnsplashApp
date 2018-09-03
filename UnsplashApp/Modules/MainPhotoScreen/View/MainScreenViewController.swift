@@ -29,7 +29,7 @@ class MainScreenViewController: UICollectionViewController {
         
         self.presenter?.setUpView(page: currentPage)
         
-        self.layout = collectionViewLayout as! CustomLayout
+        self.layout = self.collectionViewLayout as! CustomLayout
         self.layout.delegate = self
         
         self.searchBar.showsCancelButton = true
